@@ -19,10 +19,10 @@ public class UserDAO {
     }
 
 
-    public Users getUserByLogin(AccessDTO accessDTO) throws IllegalAccessException {
+    public Users getUserByLogin(AccessDTO accessDTO) throws IllegalStateException {
         Optional<Users> user = userRepository.findUserByLogin(accessDTO.login);
         if (user.isEmpty()) {
-            throw new IllegalAccessException("Wrong login");
+            throw new IllegalStateException("Wrong login");
         }
         return user.get();
     }

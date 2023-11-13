@@ -13,8 +13,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/apishechka")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "https://ylzaporozhskiy.ru/")
 public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper;
