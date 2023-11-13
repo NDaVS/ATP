@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.ndavs.atp.DTO.PostScheduleDTO;
 import ru.ndavs.atp.DTO.StationDTO;
 import ru.ndavs.atp.Services.ScheduleService;
+import ru.ndavs.atp.models.Schedule;
 import ru.ndavs.atp.models.Station;
 
 import java.util.List;
@@ -17,11 +18,11 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @GetMapping
-    public List<Station> getSchedule(){
-        return scheduleService.getStations();
+    public List<Schedule> getSchedule(){
+        return scheduleService.getSchedule();
     }
     @PostMapping
-    public PostScheduleDTO postSchedule(@RequestBody PostScheduleDTO postScheduleDTO){
-        return postScheduleDTO;
+    public Schedule postSchedule(@RequestBody PostScheduleDTO postScheduleDTO){
+        return scheduleService.addTrip(postScheduleDTO);
     }
 }

@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "shedule")
+@Table(name = "sсhedule")
 @Getter
 @Setter
 public class Schedule {
@@ -33,8 +34,9 @@ public class Schedule {
     @Column(name = "time_from")
     private String time_from;
 
-//    @OneToMany(mappedBy = "schedule")
-//    private Set<TripStation> stations;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "trip_stations", referencedColumnName = "trip_id")
+    private TripStation stations;
 
     public Schedule(
             String time_to,
@@ -55,7 +57,7 @@ public class Schedule {
                 ", bus=" + bus +
                 ", time_to='" + time_to + '\'' +
                 ", time_from='" + time_from + '\'' +
-//                ", stations=" + stations +
+                ", stations=" + stations +
                 '}';
     }
 

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,27 +16,28 @@ public class TripStation {
     @Id
     private Long trip_id;
 
-//    @OneToMany(mappedBy = "trip_station")
-//    @JoinColumn(name = "station", referencedColumnName = "id")
-//    private Set<Station> station_id;
+    @OneToMany(mappedBy = "tripStation", cascade = CascadeType.ALL)
+    private List<Station> stations;
+
+
 
     public TripStation(
             Long trip_id,
-            Set<Station> station_id
+            List<Station> stations
     ) {
         this.trip_id = trip_id;
-//        this.station_id = station_id;
+        this.stations = stations;
     }
+
     public TripStation() {
     }
 
     @Override
     public String toString() {
-        return "trip_station{" +
+        return "TripStation{" +
                 "trip_id=" + trip_id +
-//                ", station_id=" + station_id +
+                ", stations=" + stations +
                 '}';
     }
-
 
 }

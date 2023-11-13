@@ -10,7 +10,8 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public class PostScheduleDTO {
-    private Integer bus_id;
+    private Long id;
+    private Long bus_id;
     private String time_to;
     private String time_from;
     private List<StationDTO> stations;

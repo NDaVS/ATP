@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter
 @RequiredArgsConstructor
 public class StationDTO {
-    private Integer id;
-    private Integer name;
+    private long id;
+    private String name;
 
     @Override
     public String toString() {
