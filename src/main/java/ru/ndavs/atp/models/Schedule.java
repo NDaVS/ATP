@@ -1,5 +1,6 @@
 package ru.ndavs.atp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,30 +14,23 @@ import java.util.Set;
 @Setter
 public class Schedule {
     @Id
-    @SequenceGenerator(
-            name = "task_sequence",
-            sequenceName = "task_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "task_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bus", referencedColumnName = "id")
-    private  Bus bus;
-
     @Column(name = "time_to")
     private String time_to;
 
     @Column(name = "time_from")
     private String time_from;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bus", referencedColumnName = "id")
+    private  Bus bus;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "trip_stations", referencedColumnName = "trip_id")
-    private TripStation stations;
+    private TripStations stations;
+
+
 
     public Schedule(
             String time_to,
@@ -57,7 +51,7 @@ public class Schedule {
                 ", bus=" + bus +
                 ", time_to='" + time_to + '\'' +
                 ", time_from='" + time_from + '\'' +
-                ", stations=" + stations +
+//                ", stations=" + stations +
                 '}';
     }
 

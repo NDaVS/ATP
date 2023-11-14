@@ -10,7 +10,7 @@ import ru.ndavs.atp.Repositories.StationRepository;
 import ru.ndavs.atp.Repositories.TripStationRepository;
 import ru.ndavs.atp.models.Schedule;
 import ru.ndavs.atp.models.Station;
-import ru.ndavs.atp.models.TripStation;
+import ru.ndavs.atp.models.TripStations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +18,15 @@ import java.util.List;
 @Service
 public class ScheduleService {
     private final StationRepository stationRepository;
-    private final TripStationRepository tripStationRepository;
     private final ScheduleRepository scheduleRepository;
     private final BusRepository busRepository;
+    private final TripStationRepository tripStationRepository;
 
-    public ScheduleService(StationRepository stationRepository, TripStationRepository tripStationRepository, ScheduleRepository scheduleRepository, BusRepository busRepository) {
+    public ScheduleService(StationRepository stationRepository, ScheduleRepository scheduleRepository, BusRepository busRepository, TripStationRepository tripStationRepository) {
         this.stationRepository = stationRepository;
-        this.tripStationRepository = tripStationRepository;
         this.scheduleRepository = scheduleRepository;
         this.busRepository = busRepository;
+        this.tripStationRepository = tripStationRepository;
     }
 
     public List<Schedule> getSchedule() {
@@ -42,18 +42,18 @@ public class ScheduleService {
                     postScheduleDTO.getTime_from()
             );
             schedule.setBus(busRepository.findById(postScheduleDTO.getBus_id()).get());
-            schedule.setId(postScheduleDTO.getId());
-            TripStation tripStation = new TripStation();
-            tripStation.setTrip_id(postScheduleDTO.getId());
+            schedule.setId(postScheduleDTO.getSchedule_id());
+            TripStations tripStations = new TripStations();
+
             // перебрать все станции из postScheduleDTO и добавить в tripStation из базы данных
             List<Station> stations = new ArrayList<Station>();
             for (StationDTO station : postScheduleDTO.getStations()) {
                 stations.add(stationRepository.findById(station.getId()).get());
             }
-            tripStation.setStations(stations);
-            //        tripStation.setSchedule(schedule);
-            tripStationRepository.save(tripStation);
-            schedule.setStations(tripStation);
+            tripStations.setStations(stations);
+            tripStationRepository.save(tripStations);
+            schedule.setStations(tripStations);
+
             scheduleRepository.save(schedule);
             return schedule;
         } catch (Exception e) {

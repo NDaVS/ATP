@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/apishechka/schedule")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "https://ylzaporozhskiy.ru/")
 public class ScheduleController {
 
     private final ScheduleService scheduleService;

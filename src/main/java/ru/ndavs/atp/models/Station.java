@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "stations")
 @Getter
@@ -16,11 +18,6 @@ public class Station {
 
     @Column(name = "name")
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "trip_id")
-    private TripStation tripStation;
-
 
 
     public Station(
