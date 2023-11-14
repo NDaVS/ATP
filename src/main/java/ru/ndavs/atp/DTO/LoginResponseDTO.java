@@ -1,17 +1,13 @@
 package ru.ndavs.atp.DTO;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Setter
-@Getter
+@Data
+@NoArgsConstructor
 public class LoginResponseDTO {
     public String token;
+    public String first_name;
+    public String last_name;
     public String role;
 
-    public LoginResponseDTO(String token, String role) {
-        this.token = token;
-        this.role = role;
-    }
 }

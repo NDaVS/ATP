@@ -11,4 +11,6 @@ public class BusDTO {
     private Long id;
     private String model;
     private String Status;
+
+
 }
