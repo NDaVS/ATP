@@ -8,9 +8,9 @@ import lombok.Setter;
 @Getter
 @RequiredArgsConstructor
 public class UserDTO{
-    public String firstName;
-    public String lastName;
-    public String fatherName;
+    public String first_name;
+    public String last_name;
+    public String father_name;
     public String email;
     public String role;
 }

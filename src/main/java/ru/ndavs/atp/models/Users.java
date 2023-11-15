@@ -25,15 +25,15 @@ public class Users {
     private Long id;
 
     @Column(name = "first_name")
-    private String firstName;
+    private String first_name;
 
     @Column(name = "last_name")
     @NotNull
-    private String lastName;
+    private String last_name;
 
     @Column(name = "father_name")
     @NotNull
-    private String fatherName;
+    private String father_name;
 
     @Column(name = "email")
     @NotNull
@@ -53,9 +53,9 @@ public class Users {
 
     public Users(Long id, String firstName, String lastName, String fatherName, String email, String role, String login, String password) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fatherName = fatherName;
+        this.first_name = firstName;
+        this.last_name = lastName;
+        this.father_name = fatherName;
         this.email = email;
         this.role = role;
         this.login = login;
@@ -63,9 +63,9 @@ public class Users {
     }
 
     public Users(String firstName, String lastName, String fatherName, String email, String role, String login, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.fatherName = fatherName;
+        this.first_name = firstName;
+        this.last_name = lastName;
+        this.father_name = fatherName;
         this.email = email;
         this.role = role;
         this.login = login;
@@ -79,9 +79,9 @@ public class Users {
     public String toString() {
         return "Users{" +
                 "id=" + getId() +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", fatherName='" + fatherName + '\'' +
+                ", firstName='" + first_name + '\'' +
+                ", lastName='" + last_name + '\'' +
+                ", fatherName='" + father_name + '\'' +
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
                 ", login='" + login + '\'' +

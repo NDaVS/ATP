@@ -31,8 +31,8 @@ public class ScheduleController {
         List<ScheduleDTO> scheduleDTOList = new ArrayList<>();
         for (Schedule schedule : schedules) {
             ScheduleDTO scheduleDTO = modelMapper.map(schedule, ScheduleDTO.class);
-            scheduleDTO.setBusDTO(modelMapper.map(schedule.getBus(), BusDTO.class));
-            scheduleDTO.setTripStationDTO(modelMapper.map(schedule.getStations(), TripStationDTO.class));
+            scheduleDTO.setBus(modelMapper.map(schedule.getBus(), BusDTO.class));
+            scheduleDTO.setStation(modelMapper.map(schedule.getStations(), TripStationDTO.class));
             scheduleDTOList.add(scheduleDTO);
         }
         return scheduleDTOList;
@@ -43,8 +43,8 @@ public class ScheduleController {
     public ScheduleDTO postSchedule(@RequestBody PostScheduleDTO postScheduleDTO){
         Schedule schedule = scheduleService.addTrip(postScheduleDTO);
         ScheduleDTO scheduleDTO = modelMapper.map(schedule, ScheduleDTO.class);
-        scheduleDTO.setBusDTO(modelMapper.map(schedule.getBus(), BusDTO.class));
-        scheduleDTO.setTripStationDTO(modelMapper.map(schedule.getStations(), TripStationDTO.class));
+        scheduleDTO.setBus(modelMapper.map(schedule.getBus(), BusDTO.class));
+        scheduleDTO.setStation(modelMapper.map(schedule.getStations(), TripStationDTO.class));
         return scheduleDTO;
     }
 }

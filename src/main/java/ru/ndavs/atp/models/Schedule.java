@@ -1,12 +1,8 @@
 package ru.ndavs.atp.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "sсhedule")
@@ -51,7 +47,7 @@ public class Schedule {
                 ", bus=" + bus +
                 ", time_to='" + time_to + '\'' +
                 ", time_from='" + time_from + '\'' +
-//                ", stations=" + stations +
+                ", stations=" + stations +
                 '}';
     }
 
