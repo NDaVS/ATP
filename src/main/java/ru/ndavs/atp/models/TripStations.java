@@ -17,6 +17,15 @@ public class TripStations {
             sequenceName = "task_sequence",
             allocationSize = 1
     )
+    @Column(name = "time_to")
+    private String time_to;
+
+    @Column(name = "time_from")
+    private String time_from;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bus", referencedColumnName = "id")
+    private  Bus bus;
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "task_sequence"
@@ -25,4 +34,11 @@ public class TripStations {
 
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Station> stations;
+
+    public TripStations(String timeTo, String timeFrom) {
+        this.time_to = timeTo;
+        this.time_from = timeFrom;
+    }
+    public TripStations() {
+    }
 }

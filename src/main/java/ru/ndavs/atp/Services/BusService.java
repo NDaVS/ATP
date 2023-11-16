@@ -16,6 +16,10 @@ public class BusService {
     }
 
     public List<Bus> getBuses(){
-        return busRepository.findAll();
+        try {
+            return busRepository.findAll();
+        } catch (Exception e){
+            throw new IllegalStateException("Не удалось получить список автобусов: " + e.getMessage() + "\n" + e.getStackTrace() + "\n");
+        }
     }
 }

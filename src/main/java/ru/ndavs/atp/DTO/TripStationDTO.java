@@ -8,5 +8,8 @@ import java.util.List;
 @NoArgsConstructor
 public class TripStationDTO {
     private Long trip_id;
+    private String time_to;
+    private String time_from;
     private List<StationDTO> stations;
+        private BusDTO bus;
 }

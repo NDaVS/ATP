@@ -22,11 +22,15 @@ public class UserService {
     }
 
     public LoginResponseDTO loginResponse(AccessDTO accessDTO) throws IllegalStateException {
-        Users user = userDAO.getUserByLogin(accessDTO);
-        if (user.getPassword().equals(accessDTO.password)){
-            return userDAO.loginResponse(accessDTO);
+        try {
+            Users user = userDAO.getUserByLogin(accessDTO);
+            if (user.getPassword().equals(accessDTO.password)) {
+                return userDAO.loginResponse(accessDTO);
+            }
+            throw new IllegalStateException("Wrong login/password");
+        } catch (Exception e) {
+            throw new IllegalStateException("Something went wrong: " + e.getMessage() + "\n" + e.getStackTrace() + "\n");
         }
-        throw new IllegalStateException("Wrong password");
 
     }
 

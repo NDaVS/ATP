@@ -2,7 +2,7 @@ package ru.ndavs.atp.Services;
 
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import ru.ndavs.atp.DTO.PostScheduleDTO;
+import ru.ndavs.atp.DTO.PostTripDTO;
 import ru.ndavs.atp.DTO.StationDTO;
 import ru.ndavs.atp.Repositories.BusRepository;
 import ru.ndavs.atp.Repositories.ScheduleRepository;
@@ -35,29 +35,30 @@ public class ScheduleService {
 
     //    Добавить вывод
     @Transactional
-    public Schedule addTrip(PostScheduleDTO postScheduleDTO) {
+    public Schedule addTrip(PostTripDTO postTripDTO) {
         try {
             Schedule schedule = new Schedule(
-                    postScheduleDTO.getTime_to(),
-                    postScheduleDTO.getTime_from()
+                    postTripDTO.getTime_to(),
+                    postTripDTO.getTime_from()
             );
-            schedule.setBus(busRepository.findById(postScheduleDTO.getBus_id()).get());
-            schedule.setId(postScheduleDTO.getSchedule_id());
-            TripStations tripStations = new TripStations();
-
-            // перебрать все станции из postScheduleDTO и добавить в tripStation из базы данных
-            List<Station> stations = new ArrayList<Station>();
-            for (StationDTO station : postScheduleDTO.getStations()) {
-                stations.add(stationRepository.findById(station.getId()).get());
-            }
-            tripStations.setStations(stations);
-            tripStationRepository.save(tripStations);
-            schedule.setStations(tripStations);
-
-            scheduleRepository.save(schedule);
-            return schedule;
+//            schedule.setBus(busRepository.findById(postTripDTO.getBus_id()).get());
+////            schedule.setId(postTripDTO.getSchedule_id());
+//            TripStations tripStations = new TripStations();
+//
+//            // перебрать все станции из postScheduleDTO и добавить в tripStation из базы данных
+//            List<Station> stations = new ArrayList<Station>();
+//            for (StationDTO station : postTripDTO.getStations()) {
+//                stations.add(stationRepository.findById(station.getId()).get());
+//            }
+//            tripStations.setStations(stations);
+//            tripStationRepository.save(tripStations);
+//            schedule.setStations(tripStations);
+//
+//            scheduleRepository.save(schedule);
+//            return schedule;
         } catch (Exception e) {
             throw new IllegalStateException("Не удалось добавить рейс");
         }
+        return null;
     }
 }
