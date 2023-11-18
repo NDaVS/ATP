@@ -23,9 +23,8 @@ public class TripStations {
     @Column(name = "time_from")
     private String time_from;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bus", referencedColumnName = "id")
-    private  Bus bus;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Driver driver;
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "task_sequence"

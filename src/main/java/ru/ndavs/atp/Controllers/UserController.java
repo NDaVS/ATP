@@ -3,10 +3,9 @@ package ru.ndavs.atp.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.*;
-import ru.ndavs.atp.DTO.AccessDTO;
-import ru.ndavs.atp.DTO.LoginResponseDTO;
-import ru.ndavs.atp.DTO.UserDTO;
+import ru.ndavs.atp.DTO.*;
 import ru.ndavs.atp.Services.UserService;
 
 import java.util.List;
@@ -25,8 +24,23 @@ public class UserController {
         return userService.getUsers().toList().stream().map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
     }
     @PostMapping(path = "/login")
-    public LoginResponseDTO response(@RequestBody AccessDTO accessDTO) throws IllegalAccessException {
+    public ResponseDTO response(@RequestBody AccessDTO accessDTO) throws IllegalAccessException {
         return userService.loginResponse(accessDTO);
+    }
+
+    @PostMapping(path = "/register_driver")
+    public ResponseDTO registerDriver(@RequestBody RegisterDriverDTO registerDriverDTO) throws IllegalAccessException {
+        return userService.registerDriver(registerDriverDTO);
+    }
+
+    @GetMapping(path = "/drivers")
+    public ResponseDTO getDrivers(){
+        return userService.getDrivers();
+    }
+
+    @PatchMapping(path = "/drivers")
+    public ResponseDTO patchDriver(@RequestParam Long driver_id, @RequestParam Long bus_id){
+        return userService.updateDriverBus(driver_id, bus_id);
     }
 
 

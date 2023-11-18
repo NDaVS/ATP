@@ -12,5 +12,4 @@ public class BusDTO {
     private String model;
     private String Status;
 
-
 }

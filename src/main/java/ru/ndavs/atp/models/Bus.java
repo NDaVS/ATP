@@ -32,6 +32,7 @@ public class Bus {
     @NotNull
     private Integer numberOfSits;
 
+
     public Bus(
             String model,
             String vin,

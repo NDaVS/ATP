@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostTripDTO {
     private Long trip_id;
-    private Long bus_id;
+    private Long driver_id;
     private String time_to;
     private String time_from;
     private List<StationDTO> stations;
@@ -19,7 +19,7 @@ public class PostTripDTO {
     @Override
     public String toString() {
         return "PostScheduleDTO{" +
-                "bus_id=" + bus_id +
+                "bus_id=" + driver_id +
                 ", time_to='" + time_to + '\'' +
                 ", time_from='" + time_from + '\'' +
                 ", stations=" + stations +

@@ -11,5 +11,5 @@ public class TripStationDTO {
     private String time_to;
     private String time_from;
     private List<StationDTO> stations;
-        private BusDTO bus;
+    public DriverDTO driverDTO;
 }

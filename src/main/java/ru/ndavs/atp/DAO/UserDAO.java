@@ -3,7 +3,7 @@ package ru.ndavs.atp.DAO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.ndavs.atp.DTO.AccessDTO;
-import ru.ndavs.atp.DTO.LoginResponseDTO;
+import ru.ndavs.atp.DTO.UserResponseDTO;
 import ru.ndavs.atp.Repositories.UserRepository;
 import ru.ndavs.atp.models.Users;
 
@@ -37,9 +37,9 @@ public class UserDAO {
         return users;
     }
 
-    public LoginResponseDTO loginResponse(AccessDTO accessDTO) {
-        LoginResponseDTO loginResponseDTO = userRepository.findUserByLogin(accessDTO.login).map(user -> modelMapper.map(user, LoginResponseDTO.class)).orElseThrow(() -> new IllegalStateException("Wrong login"));
-        loginResponseDTO.setToken("token");
-        return loginResponseDTO;
+    public UserResponseDTO loginResponse(AccessDTO accessDTO) {
+        UserResponseDTO userResponseDTO = userRepository.findUserByLogin(accessDTO.login).map(user -> modelMapper.map(user, UserResponseDTO.class)).orElseThrow(() -> new IllegalStateException("Wrong login"));
+        userResponseDTO.token = "token";
+        return userResponseDTO;
     }
 }
