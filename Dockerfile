@@ -1,4 +1,3 @@
-FROM openjdk:11
-LABEL authors="Admin"
-COPY target/*.jar /app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+FROM openjdk:22
+ADD target/ATP-0.0.1-SNAPSHOT.jar backend.jar
+ENTRYPOINT ["java", "-jar", "backend.jar"]
