@@ -1,6 +1,7 @@
 package ru.ndavs.atp.Services;
 
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.ndavs.atp.DTO.PostTripDTO;
 import ru.ndavs.atp.DTO.StationDTO;
@@ -16,18 +17,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ScheduleService {
     private final StationRepository stationRepository;
     private final ScheduleRepository scheduleRepository;
     private final BusRepository busRepository;
     private final TripStationRepository tripStationRepository;
 
-    public ScheduleService(StationRepository stationRepository, ScheduleRepository scheduleRepository, BusRepository busRepository, TripStationRepository tripStationRepository) {
-        this.stationRepository = stationRepository;
-        this.scheduleRepository = scheduleRepository;
-        this.busRepository = busRepository;
-        this.tripStationRepository = tripStationRepository;
-    }
+//    public ScheduleService(StationRepository stationRepository, ScheduleRepository scheduleRepository, BusRepository busRepository, TripStationRepository tripStationRepository) {
+//        this.stationRepository = stationRepository;
+//        this.scheduleRepository = scheduleRepository;
+//        this.busRepository = busRepository;
+//        this.tripStationRepository = tripStationRepository;
+//    }
 
     public List<Schedule> getSchedule() {
         return scheduleRepository.findAll();

@@ -40,7 +40,7 @@ public class UserService {
             if (user.getPassword().equals(accessDTO.password)) {
                 UserResponseDTO userResponseDTO = userDAO.loginResponse(accessDTO);
                 ResponseDTO responseDTO = new ResponseDTO();
-                responseDTO.status = "Success";
+                responseDTO.message = "Success";
                 responseDTO.data = userResponseDTO;
                 return responseDTO;
             }
@@ -58,7 +58,7 @@ public class UserService {
             Driver driver = modelMapper.map(registerDriverDTO, Driver.class);
             driverRepository.save(driver);
             ResponseDTO responseDTO = new ResponseDTO();
-            responseDTO.status = "Success";
+            responseDTO.message = "Success";
             responseDTO.data = modelMapper.map(driver, DriverDTO.class);
             return responseDTO;
         } catch (Exception e) {
@@ -69,7 +69,7 @@ public class UserService {
     public ResponseDTO getDrivers() {
         try {
             ResponseDTO responseDTO = new ResponseDTO();
-            responseDTO.status = "Success";
+            responseDTO.message = "Success";
             responseDTO.data = driverRepository.findAll();
             return responseDTO;
         } catch (Exception e) {
@@ -84,7 +84,7 @@ try {
             driver.setBus(bus);
             driverRepository.save(driver);
             ResponseDTO responseDTO = new ResponseDTO();
-            responseDTO.status = "Success";
+            responseDTO.message = "Success";
             responseDTO.data = driver;
 //            responseDTO.data.bus = modelMapper.map(bus, BusDTO.class);
             return responseDTO;

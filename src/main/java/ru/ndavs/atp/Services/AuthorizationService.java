@@ -27,7 +27,8 @@ public class AuthorizationService {
             if (driver.get().getPassword().equals(accessDTO.password)){
                 DriverDTO driverDTO = modelMapper.map(driver, DriverDTO.class);
                 ResponseDTO responseDTO = new ResponseDTO();
-                responseDTO.status = "success";
+                responseDTO.code = 200L;
+                responseDTO.message = "success";
                 responseDTO.data = driverDTO;
                 return responseDTO;
 

@@ -12,11 +12,8 @@ import java.util.List;
 @Setter
 public class TripStations {
     @Id
-    @SequenceGenerator(
-            name = "task_sequence",
-            sequenceName = "task_sequence",
-            allocationSize = 1
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "time_to")
     private String time_to;
 

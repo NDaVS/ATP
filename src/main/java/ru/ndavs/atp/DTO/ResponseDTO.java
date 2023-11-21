@@ -5,7 +5,8 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 public class ResponseDTO {
-    public String status;
+    public Long code;
+    public String message;
     public Object data;
 //    public String token;
 //    public String first_name;

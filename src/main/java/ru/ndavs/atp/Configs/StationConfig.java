@@ -20,7 +20,7 @@ public class StationConfig {
                     "FEFU"
             );
             Station station_3 = new Station(
-                   "STICK YOUR FINGER IN MY BACK_END"
+                   "Death🤡"
             );
             repository.saveAll(List.of(station_1, station_2, station_3));
         };
