@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Driver extends Users{
+public class Driver extends Users {
     private String driver_id;
     @OneToOne
     private Bus bus;

@@ -20,9 +20,21 @@ public class StationConfig {
                     "FEFU"
             );
             Station station_3 = new Station(
-                   "Death🤡"
+                   "Вертодром"
             );
-            repository.saveAll(List.of(station_1, station_2, station_3));
+            Station station_4 = new Station(
+                    "ТЭЦ"
+            );
+            Station station_5 = new Station(
+                    "Парк"
+            );
+            Station station_6 = new Station(
+                    "Площадь"
+            );
+            Station station_7 = new Station(
+                    "Порт"
+            );
+            repository.saveAll(List.of(station_1, station_2, station_3, station_4, station_5, station_6, station_7));
         };
     }
 }

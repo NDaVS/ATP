@@ -1,15 +1,11 @@
 package ru.ndavs.atp.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.List;
+import lombok.Data;
 
 @Entity
 @Table(name = "stations")
-@Getter
-@Setter
+@Data
 public class Station {
 
     @Id
@@ -28,13 +24,5 @@ public class Station {
 
     public Station() {
 
-    }
-
-    @Override
-    public String toString() {
-        return "station{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
     }
 }

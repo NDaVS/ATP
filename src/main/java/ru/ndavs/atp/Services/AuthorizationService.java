@@ -1,5 +1,6 @@
 package ru.ndavs.atp.Services;
 
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.ndavs.atp.DAO.UserDAO;
@@ -12,14 +13,10 @@ import ru.ndavs.atp.models.Driver;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class AuthorizationService {
     private final ModelMapper modelMapper;
     private final DriverRepository driverRepository;
-
-    public AuthorizationService(UserDAO userDAO, ModelMapper modelMapper, DriverRepository driverRepository) {
-        this.modelMapper = modelMapper;
-        this.driverRepository = driverRepository;
-    }
 
     public ResponseDTO mobileAuthorization(AccessDTO accessDTO){
         try{
