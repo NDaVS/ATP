@@ -1,15 +1,14 @@
 package ru.ndavs.atp.DTO;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
-@Setter
-@Getter
+@Data
 @RequiredArgsConstructor
 public class BusDTO {
     private Long id;
     private String model;
-    private String Status;
-
+    private String code;
+    private String status;
+    private Integer numberOfSits;
 }

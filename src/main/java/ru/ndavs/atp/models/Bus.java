@@ -1,13 +1,17 @@
 package ru.ndavs.atp.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
 @Table(name = "bus")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Bus {
 
     @Id
@@ -18,9 +22,9 @@ public class Bus {
     @NotNull
     private String model;
 
-    @Column(name = "vin")
+    @Column(name = "code")
     @NotNull
-    private String vin;
+    private String code;
 
     @Column(name = "status")
     @NotNull
@@ -33,19 +37,15 @@ public class Bus {
 
     public Bus(
             String model,
-            String vin,
+            String code,
             String status,
             Integer numberOfSits
     ) {
         this.model = model;
-        this.vin = vin;
+        this.code = code;
         this.status = status;
         this.numberOfSits = numberOfSits;
     }
 
-
-    public Bus() {
-
-    }
 }
     

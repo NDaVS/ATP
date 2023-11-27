@@ -16,7 +16,7 @@ services:
 
 
   app:
-    image: 'atp-ns'
+    image: 'lifrut/atp-ns'
     container_name: 'java-app'
     depends_on:
       - postgres
