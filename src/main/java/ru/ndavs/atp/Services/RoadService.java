@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import ru.ndavs.atp.DTO.PostRoadDTO;
 import ru.ndavs.atp.DTO.ResponseDTO;
 import ru.ndavs.atp.DTO.RoadDTO;
-import ru.ndavs.atp.DTO.StationDTO;
 import ru.ndavs.atp.Repositories.BusRepository;
 import ru.ndavs.atp.Repositories.DriverRepository;
 import ru.ndavs.atp.Repositories.RoadRepository;
@@ -115,20 +114,5 @@ public class RoadService {
 
 
 
-    public ResponseDTO getStations() {
-        try{
-            List<Station> stations = stationRepository.findAll();
-            List<StationDTO> stationDTOList = new ArrayList<>();
-            for (Station station : stations) {
-                stationDTOList.add(modelMapper.map(station, StationDTO.class));
-            }
-            ResponseDTO responseDTO = new ResponseDTO();
-            responseDTO.message = "success";
-            responseDTO.code = 200L;
-            responseDTO.data = stationDTOList;
-            return responseDTO;
-        } catch (Exception e) {
-            throw new IllegalStateException("Не удалось получить станции: " + e.getMessage() + " | | " + e.getStackTrace());
-        }
-    }
+
 }

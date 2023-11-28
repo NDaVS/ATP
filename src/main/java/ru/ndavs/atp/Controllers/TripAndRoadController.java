@@ -18,10 +18,7 @@ public class TripAndRoadController {
 
     private final TripService tripService;
 
-    @GetMapping(path = "/stations")
-    public ResponseEntity getStations() {
-        return ResponseEntity.ok(roadService.getStations());
-    }
+
 
     //    ROAD CRUD
     @GetMapping(path = "/road")
