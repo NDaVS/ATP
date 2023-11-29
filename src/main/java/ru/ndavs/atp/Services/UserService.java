@@ -1,48 +1,41 @@
 package ru.ndavs.atp.Services;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.ndavs.atp.DAO.UserDAO;
 import ru.ndavs.atp.DTO.*;
 import ru.ndavs.atp.Repositories.BusRepository;
 import ru.ndavs.atp.Repositories.DriverRepository;
-import ru.ndavs.atp.models.Bus;
+import ru.ndavs.atp.Repositories.UserRepository;
 import ru.ndavs.atp.models.Driver;
 import ru.ndavs.atp.models.Users;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
     private final UserDAO userDAO;
     private final ModelMapper modelMapper;
     private final DriverRepository driverRepository;
+    private final UserRepository userRepository;
 
     private final BusRepository busRepository;
 
 
-    public UserService(UserDAO userDAO, ModelMapper modelMapper, DriverRepository driverRepository, BusRepository busRepository) {
-        this.userDAO = userDAO;
-        this.modelMapper = modelMapper;
-        this.driverRepository = driverRepository;
-        this.busRepository = busRepository;
-    }
-
-
-    public Stream<Users> getUsers(){
+    public Stream<Users> getUsers() {
         return userDAO.getUsers();
     }
 
-    public ResponseDTO loginResponse(AccessDTO accessDTO) throws IllegalStateException {
+    public UserResponseDTO loginResponse(AccessDTO accessDTO) throws IllegalStateException {
         try {
             Users user = userDAO.getUserByLogin(accessDTO);
             if (user.getPassword().equals(accessDTO.password)) {
                 UserResponseDTO userResponseDTO = userDAO.loginResponse(accessDTO);
-                ResponseDTO responseDTO = new ResponseDTO();
-                responseDTO.message = "Success";
-                responseDTO.data = userResponseDTO;
-                return responseDTO;
+                return userResponseDTO;
             }
             throw new IllegalStateException("Wrong login/password");
         } catch (Exception e) {
@@ -50,46 +43,108 @@ public class UserService {
         }
 
     }
-    public ResponseDTO registerDriver(RegisterDriverDTO registerDriverDTO){
+
+    public UserDTO getUserById(Long id) {
         try {
-            if (driverRepository.findDriverByLogin(registerDriverDTO.login).isPresent()){
+            Users user = userRepository.getReferenceById(id);
+            return modelMapper.map(user, UserDTO.class);
+        } catch (Exception e) {
+            throw new IllegalStateException("Something went wrong: " + e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()) + "\n");
+        }
+    }
+
+    public UserDTO addNewUser(PostUserDTO postUserDTO){
+        try {
+            Users user = modelMapper.map(postUserDTO, Users.class);
+            userRepository.save(user);
+            return modelMapper.map(user, UserDTO.class);
+        }catch (Exception e) {
+            throw new IllegalStateException("Something went wrong: " + e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()) + "\n");
+        }
+    }
+
+    public UserDTO updateUserById(PostUserDTO postUserDTO, Long id){
+        try {
+            Users user = userRepository.getReferenceById(id);
+            user.setFirst_name(postUserDTO.getFirst_name());
+            user.setFather_name(postUserDTO.getFather_name());
+            user.setLast_name(postUserDTO.getLast_name());
+            user.setRole(postUserDTO.getRole());
+            user.setLogin(postUserDTO.getLogin());
+            user.setPassword(postUserDTO.getPassword());
+            user.setEmail(postUserDTO.getEmail());
+            userRepository.save(user);
+            return modelMapper.map(user, UserDTO.class);
+        } catch (Exception e) {
+            throw new IllegalStateException("Something went wrong: " + e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()) + "\n");
+        }
+    }
+    public UserDTO deleteUserById(Long id){
+        try{
+            Users user =  userRepository.getReferenceById(id);
+            userRepository.delete(user);
+            return modelMapper.map(user, UserDTO.class);
+        } catch (Exception e) {
+            throw new IllegalStateException("Something went wrong: " + e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()) + "\n");
+        }
+    }
+//DRIVERS
+    public DriverDTO registerDriver(PostDriverDTO postDriverDTO) {
+        try {
+            if (driverRepository.findDriverByLogin(postDriverDTO.login).isPresent()) {
                 throw new IllegalStateException("This login is already taken");
             }
-            Driver driver = modelMapper.map(registerDriverDTO, Driver.class);
+            Driver driver = modelMapper.map(postDriverDTO, Driver.class);
             driverRepository.save(driver);
-            ResponseDTO responseDTO = new ResponseDTO();
-            responseDTO.message = "Success";
-            responseDTO.data = modelMapper.map(driver, DriverDTO.class);
-            return responseDTO;
+            return modelMapper.map(driver, DriverDTO.class);
         } catch (Exception e) {
             throw new IllegalStateException("Something went wrong: ");
         }
     }
 
-    public ResponseDTO getDrivers() {
+    public List<DriverDTO> getDrivers() {
         try {
-            ResponseDTO responseDTO = new ResponseDTO();
-            responseDTO.message = "Success";
-            responseDTO.data = driverRepository.findAll();
-            return responseDTO;
+            List<Driver> drivers = driverRepository.findAll();
+            return drivers.stream().map(driver -> modelMapper.map(driver, DriverDTO.class)).toList();
         } catch (Exception e) {
             throw new IllegalStateException("Something went wrong: ");
         }
     }
 
-    public ResponseDTO updateDriverBus(Long driverId, Long busId) {
-try {
+    public DriverDTO updateDriverBus(PostDriverDTO postDriverDTO,Long driverId) {
+        try {
             Driver driver = driverRepository.findById(driverId).get();
-            Bus bus = busRepository.findById(busId).get();
-            driver.setBus(bus);
+            driver.setLogin(postDriverDTO.getLogin());
+            driver.setPassword(postDriverDTO.getPassword());
+            driver.setDriver_id(postDriverDTO.getDriver_id());
+            driver.setEmail(postDriverDTO.getEmail());
+            driver.setFirst_name(postDriverDTO.getFirst_name());
+            driver.setLast_name(postDriverDTO.getLast_name());
+            driver.setFather_name(postDriverDTO.getFather_name());
             driverRepository.save(driver);
-            ResponseDTO responseDTO = new ResponseDTO();
-            responseDTO.message = "Success";
-            responseDTO.data = driver;
 //            responseDTO.data.bus = modelMapper.map(bus, BusDTO.class);
-            return responseDTO;
+            return modelMapper.map(driver, DriverDTO.class);
         } catch (Exception e) {
             throw new IllegalStateException("Something went wrong: ");
+        }
+    }
+
+    public DriverDTO deleteDriverById(Long driverId) {
+        try {
+            Driver driver = driverRepository.findById(driverId).get();
+            driverRepository.delete(driver);
+            return modelMapper.map(driver, DriverDTO.class);
+        } catch (Exception e) {
+            throw new IllegalStateException("Something went wrong: ");
+        }
+    }
+
+    public DriverDTO getDriverById(Long driverId) {
+        try {
+            Driver driver = driverRepository.findById(driverId).get();
+            return modelMapper.map(driver, DriverDTO.class);
+        } catch (Exception e) {
+            throw new IllegalStateException("Не удалось получить пользователя: " + e.getMessage());
         }
     }
 }

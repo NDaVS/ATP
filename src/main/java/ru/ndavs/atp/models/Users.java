@@ -2,12 +2,14 @@ package ru.ndavs.atp.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
 @Data
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 public class Users {
 
     @Id
@@ -60,6 +62,4 @@ public class Users {
         this.password = password;
     }
 
-    public Users() {
-    }
 }
