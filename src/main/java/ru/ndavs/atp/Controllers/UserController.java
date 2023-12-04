@@ -73,5 +73,10 @@ public class UserController {
         return ResponseEntity.ok(userService.deleteDriverById(id));
     }
 
+    @PatchMapping(path = "/driver")
+    public ResponseEntity setBusAndDriver(@RequestParam Long bus_id, @RequestParam Long driver_id){
+        return ResponseEntity.ok(userService.setBusAndDriver(bus_id, driver_id));
+    }
+
 
 }

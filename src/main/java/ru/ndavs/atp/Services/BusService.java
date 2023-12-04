@@ -6,19 +6,33 @@ import org.springframework.stereotype.Service;
 import ru.ndavs.atp.DTO.BusDTO;
 import ru.ndavs.atp.DTO.PostBusDTO;
 import ru.ndavs.atp.Repositories.BusRepository;
+import ru.ndavs.atp.Repositories.BusSpecRepository;
 import ru.ndavs.atp.models.Bus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class BusService {
     private final BusRepository busRepository;
+    private final BusSpecRepository busSpecRepository;
     private final ModelMapper modelMapper;
 
     public List<BusDTO> getBuses() {
         try {
-            return busRepository.findAll().stream().map(bus -> modelMapper.map(bus, BusDTO.class)).toList();
+            List<BusDTO> buses = new ArrayList<>();
+            List<Bus> busList = busRepository.findAll();
+            if (busList.isEmpty()){
+                return buses;
+            }
+            for (Bus bus : busRepository.findAll()) {
+                BusDTO busDTO = modelMapper.map(bus, BusDTO.class);
+                busDTO.setModel(bus.getBusSpec().getModel());
+                busDTO.setNumberOfSits(bus.getBusSpec().getNumber_of_sits());
+                buses.add(busDTO);
+            }
+            return buses;
         } catch (Exception e) {
             throw new IllegalStateException("Не удалось получить список автобусов : " + e.getMessage() + " | | " + e.getStackTrace());
         }
@@ -26,7 +40,11 @@ public class BusService {
 
     public BusDTO getBusById(Long id) {
         try {
-            return modelMapper.map(busRepository.findById(id).get(), BusDTO.class);
+            Bus bus = busRepository.findById(id).get();
+            BusDTO busDTO = modelMapper.map(bus, BusDTO.class);
+            busDTO.setNumberOfSits(bus.getBusSpec().getNumber_of_sits());
+            busDTO.setModel(bus.getBusSpec().getModel());
+            return busDTO;
         } catch (Exception e) {
             throw new IllegalStateException("Не удалось получить автобус : " + e.getMessage() + " | | " + e.getStackTrace());
         }
@@ -35,8 +53,12 @@ public class BusService {
     public BusDTO addBus(PostBusDTO postBusDTO) {
         try {
             Bus bus = modelMapper.map(postBusDTO, Bus.class);
+            bus.setBusSpec(busSpecRepository.findById(postBusDTO.getModel()).get());
             busRepository.save(bus);
-            return modelMapper.map(bus, BusDTO.class);
+            BusDTO busDTO = modelMapper.map(bus, BusDTO.class);
+            busDTO.setNumberOfSits(bus.getBusSpec().getNumber_of_sits());
+            busDTO.setModel(bus.getBusSpec().getModel());
+            return busDTO;
         } catch (Exception e) {
             throw new IllegalStateException("Не удалось добавить автобус : " + e.getMessage() + " | | " + e.getStackTrace());
         }
@@ -47,21 +69,25 @@ public class BusService {
             Bus bus = busRepository.getReferenceById(id);
             bus.setCode(postBusDTO.getCode());
             bus.setStatus(postBusDTO.getStatus());
-            bus.setModel(postBusDTO.getModel());
-            bus.setNumberOfSits(postBusDTO.getNumberOfSits());
+            bus.setBusSpec(busSpecRepository.findById(postBusDTO.getModel()).get());
             busRepository.save(bus);
-            return modelMapper.map(bus, BusDTO.class);
+            BusDTO busDTO = modelMapper.map(bus, BusDTO.class);
+            busDTO.setNumberOfSits(bus.getBusSpec().getNumber_of_sits());
+            busDTO.setModel(bus.getBusSpec().getModel());
+            return busDTO;
         } catch (Error e) {
             throw new IllegalStateException("Не удалось обновить автобус : " + e.getMessage() + " | | " + e.getStackTrace());
         }
 
     }
-    public BusDTO deleteBusById(Long id){
-        try{
+
+    public BusDTO deleteBusById(Long id) {
+        try {
             Bus bus = busRepository.findById(id).get();
             busRepository.delete(bus);
+            bus.setBusSpec(null);
             return modelMapper.map(bus, BusDTO.class);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new IllegalStateException("Не удалось удалить автобус : " + e.getMessage() + " | | " + e.getStackTrace());
         }
     }

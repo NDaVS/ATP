@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class DriverDTO extends UserResponseDTO {
     public String driver_id;
-    public BusDTO busDTO;
+    public BusDTO bus;
 }

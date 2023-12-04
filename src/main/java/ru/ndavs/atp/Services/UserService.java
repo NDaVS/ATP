@@ -8,6 +8,7 @@ import ru.ndavs.atp.DTO.*;
 import ru.ndavs.atp.Repositories.BusRepository;
 import ru.ndavs.atp.Repositories.DriverRepository;
 import ru.ndavs.atp.Repositories.UserRepository;
+import ru.ndavs.atp.models.Bus;
 import ru.ndavs.atp.models.Driver;
 import ru.ndavs.atp.models.Users;
 
@@ -67,7 +68,7 @@ public class UserService {
         try {
             Users user = userRepository.getReferenceById(id);
             user.setFirst_name(postUserDTO.getFirst_name());
-            user.setFather_name(postUserDTO.getFather_name());
+            user.setFather_name(postUserDTO.getSurname());
             user.setLast_name(postUserDTO.getLast_name());
             user.setRole(postUserDTO.getRole());
             user.setLogin(postUserDTO.getLogin());
@@ -120,7 +121,7 @@ public class UserService {
             driver.setEmail(postDriverDTO.getEmail());
             driver.setFirst_name(postDriverDTO.getFirst_name());
             driver.setLast_name(postDriverDTO.getLast_name());
-            driver.setFather_name(postDriverDTO.getFather_name());
+            driver.setSurname(postDriverDTO.getSurname());
             driverRepository.save(driver);
 //            responseDTO.data.bus = modelMapper.map(bus, BusDTO.class);
             return modelMapper.map(driver, DriverDTO.class);
@@ -145,6 +146,24 @@ public class UserService {
             return modelMapper.map(driver, DriverDTO.class);
         } catch (Exception e) {
             throw new IllegalStateException("Не удалось получить пользователя: " + e.getMessage());
+        }
+    }
+
+    public ResponseDTO setBusAndDriver(Long bus_id, Long driver_id){
+        try{
+
+            Driver driver = driverRepository.findById(driver_id).get();
+            Bus bus = busRepository.findById(bus_id).get();
+            driver.setBus(bus);
+            bus.setDriver(driver);
+            driverRepository.save(driver);
+            busRepository.save(bus);
+            ResponseDTO responseDTO = new ResponseDTO();
+            responseDTO.setCode(200L);
+            responseDTO.setMessage("Success");
+            return responseDTO;
+        }catch (Exception e) {
+            throw new IllegalStateException("Не удалось установить связь водителя и автобуса: " + e.getMessage());
         }
     }
 }

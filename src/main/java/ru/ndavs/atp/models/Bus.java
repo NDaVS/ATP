@@ -18,9 +18,13 @@ public class Bus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "model")
-    @NotNull
-    private String model;
+//    @Column(name = "model")
+//    @NotNull
+//    private String model;
+
+    @OneToOne
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
 
     @Column(name = "code")
     @NotNull
@@ -30,21 +34,22 @@ public class Bus {
     @NotNull
     private String status;
 
-    @Column(name = "sits")
-    @NotNull
-    private Integer numberOfSits;
+    @ManyToOne
+    @JoinColumn(name = "model")
+    private BusSpecs busSpec;
+
+//    @Column(name = "sits")
+//    @NotNull
+//    private Integer numberOfSits;
 
 
     public Bus(
-            String model,
             String code,
-            String status,
-            Integer numberOfSits
+            String status
     ) {
-        this.model = model;
+
         this.code = code;
         this.status = status;
-        this.numberOfSits = numberOfSits;
     }
 
 }
