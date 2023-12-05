@@ -3,11 +3,9 @@ package ru.ndavs.atp.Services;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import ru.ndavs.atp.DTO.PostTripDTO;
-import ru.ndavs.atp.DTO.ResponseDTO;
-import ru.ndavs.atp.DTO.RoadDTO;
-import ru.ndavs.atp.DTO.TripDTO;
+import ru.ndavs.atp.DTO.*;
 import ru.ndavs.atp.Repositories.*;
+import ru.ndavs.atp.models.Bus;
 import ru.ndavs.atp.models.Days;
 import ru.ndavs.atp.models.Driver;
 import ru.ndavs.atp.models.Trip;
@@ -25,29 +23,41 @@ public class TripService {
     private final DaysRepository daysRepository;
     private final ModelMapper modelMapper;
 
-    public List<Trip> getAllTrips() {
+    private final RoadService roadService;
+
+    public List<TripDTO> getAllTrips() {
         try {
             List<Trip> tripList = tripRepository.findAll();
-//            List<TripDTO> dtoList = new ArrayList<>();
-//            for (Trip trip : tripList) {
-//                TripDTO tripDTO = modelMapper.map(trip, TripDTO.class);
-//                RoadDTO roadDTO = setTime(trip);
-//                tripDTO.setRoad(roadDTO);
-//                dtoList.add(tripDTO);
-//            }
-            return tripList;
+            List<TripDTO> dtoList = new ArrayList<>();
+            for (Trip trip : tripList) {
+                TripDTO tripDTO = modelMapper.map(trip, TripDTO.class);
+                RoadDTO roadDTO = roadService.getRoadById(trip.getRoad().getId());
+                DriverDTO driverDTO = modelMapper.map(trip.getDriver(), DriverDTO.class);
+                BusDTO busDTO = modelMapper.map(trip.getBus(), BusDTO.class);
+                busDTO.setNumber_of_sits(trip.getBus().getBusSpec().getNumber_of_sits());
+                tripDTO.setDriver(driverDTO);
+                tripDTO.setBus(busDTO);
+                tripDTO.setRoad(roadDTO);
+                dtoList.add(tripDTO);
+            }
+            return dtoList;
         }catch (Exception e) {
             throw new IllegalStateException("Не удалось получить рейсы: " + e.getMessage() + " | | " + e.getStackTrace());
         }
     }
 
-    public Trip getTripById(Long id) {
+    public TripDTO getTripById(Long id) {
         try {
             Trip trip = tripRepository.findById(id).get();
-//            TripDTO tripDTO = modelMapper.map(trip, TripDTO.class);
-//            RoadDTO roadDTO = setTime(trip);
-//            tripDTO.setRoad(roadDTO);
-            return trip;
+            TripDTO tripDTO = modelMapper.map(trip, TripDTO.class);
+            RoadDTO roadDTO = roadService.getRoadById(trip.getRoad().getId());
+            DriverDTO driverDTO = modelMapper.map(trip.getDriver(), DriverDTO.class);
+            BusDTO busDTO = modelMapper.map(trip.getBus(), BusDTO.class);
+            busDTO.setNumber_of_sits(trip.getBus().getBusSpec().getNumber_of_sits());
+            tripDTO.setDriver(driverDTO);
+            tripDTO.setBus(busDTO);
+            tripDTO.setRoad(roadDTO);
+            return tripDTO;
         } catch (Exception e) {
             throw new IllegalStateException("Не удалось получить рейс: " + e.getMessage() + " | | " + e.getStackTrace());
         }
@@ -90,24 +100,19 @@ public class TripService {
         }
     }
 
-    private RoadDTO setTime(Trip trip){
-        RoadDTO roadDTO = modelMapper.map(trip.getRoad(), RoadDTO.class);
-        roadDTO.setTime(List.of(trip.getRoad().getTime().split(" ")));
-        roadDTO.setPrice(List.of(trip.getRoad().getPrice().split(" ")));
-        return  roadDTO;
-    }
 
-    private TripDTO getTripDTO(Trip trip) {
-        try {
-            tripRepository.save(trip);
-            RoadDTO roadDTO = setTime(trip);
-            TripDTO tripDTO = modelMapper.map(trip, TripDTO.class);
-            tripDTO.setRoad(roadDTO);
-            return tripDTO;
-        } catch (Exception e) {
-            throw new IllegalStateException("something went wrong ... : " + e.getMessage() + " | | " + e.getStackTrace());
-        }
-    }
+
+//    private TripDTO getTripDTO(Trip trip) {
+//        try {
+//            tripRepository.save(trip);
+//            RoadDTO roadDTO = setTime(trip);
+//            TripDTO tripDTO = modelMapper.map(trip, TripDTO.class);
+//            tripDTO.setRoad(roadDTO);
+//            return tripDTO;
+//        } catch (Exception e) {
+//            throw new IllegalStateException("something went wrong ... : " + e.getMessage() + " | | " + e.getStackTrace());
+//        }
+//    }
 
     public Object deleteTripById(Long id) {
         try {

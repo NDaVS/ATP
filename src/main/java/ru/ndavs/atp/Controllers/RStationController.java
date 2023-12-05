@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ndavs.atp.DTO.PostRStationDTO;
+import ru.ndavs.atp.DTO.PostRStationsDTO;
 import ru.ndavs.atp.Services.RStationsService;
 
 @RestController
@@ -13,14 +14,19 @@ import ru.ndavs.atp.Services.RStationsService;
 public class RStationController {
     private final RStationsService service;
 
-    @GetMapping
-    private ResponseEntity getAllRStations(){
-        return ResponseEntity.ok(service.getAllRStations());
+    @GetMapping("/{group_id}")
+    private ResponseEntity getAllRStationsByGroup(@PathVariable Long group_id){
+        return ResponseEntity.ok(service.getAllRStationsByGroup(group_id));
     }
 
     @PostMapping
     private ResponseEntity addNewRStation(@RequestBody PostRStationDTO dto){
         return ResponseEntity.ok(service.addNewRStation(dto));
+    }
+
+    @PostMapping("/few")
+    private ResponseEntity addFewRStation(@RequestBody PostRStationsDTO dto){
+        return ResponseEntity.ok(service.addFewRStation(dto));
     }
 
     @PutMapping

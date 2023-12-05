@@ -7,9 +7,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class BusDTO {
     private Long id;
-    private Long driver_ID;
+    private Long drive_id;
     private String model;
     private String code;
     private String status;
     private Integer number_of_sits;
+
+;
 }

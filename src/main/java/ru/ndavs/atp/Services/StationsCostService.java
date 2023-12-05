@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.ndavs.atp.CompositeKeys.StationsCostKey;
 import ru.ndavs.atp.DTO.PostStationsCostDTO;
+import ru.ndavs.atp.DTO.StationDTO;
 import ru.ndavs.atp.Repositories.StationCostRepository;
 import ru.ndavs.atp.Repositories.StationRepository;
 import ru.ndavs.atp.models.StationCost;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,6 +20,18 @@ public class StationsCostService {
 
     public List<StationCost> getAllCost(){
         return repository.findAll();
+    }
+
+    public List<Integer> getAllCostByStation(List<StationDTO> stationDTOS){
+        List<Integer> cost = new ArrayList<>();
+        for (int i = 0; i < stationDTOS.size()-1; i++){
+            StationsCostKey stationsCostKey = new StationsCostKey();
+            stationsCostKey.setStation_1(stationDTOS.get(i).getId());
+            stationsCostKey.setStation_2(stationDTOS.get(i+1).getId());
+            StationCost stationCost = repository.getReferenceById(stationsCostKey);
+            cost.add(stationCost.getCost());
+        }
+        return cost;
     }
 
     public StationCost addNewCost(PostStationsCostDTO dto){

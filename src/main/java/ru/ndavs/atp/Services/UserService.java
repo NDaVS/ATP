@@ -156,9 +156,9 @@ public class UserService {
 
             Driver driver = driverRepository.findById(driver_id).get();
             Bus bus = busRepository.findById(bus_id).get();
-//            driver.setBus(bus);
+            driver.setBus_id(bus_id);
             bus.setDriver(driver);
-//            driverRepository.save(driver);
+            driverRepository.save(driver);
             busRepository.save(bus);
             ResponseDTO responseDTO = new ResponseDTO();
             responseDTO.setCode(200L);

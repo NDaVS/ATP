@@ -11,5 +11,5 @@ public class DepartureDTO {
     private Date date;
     private String status;
     private List<TicketDTO> tickets;
-    private Long trip_id;
+    private TripDTO trip;
 }

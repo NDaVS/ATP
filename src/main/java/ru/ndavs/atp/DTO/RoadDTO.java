@@ -9,8 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 public class RoadDTO {
     private Long id;
-    private List<String> price;
-    private List<String> time;
+    private List<Integer> cost;
+    private List<Integer> time;
     private List<StationDTO> stations;
-    public String sort;
 }

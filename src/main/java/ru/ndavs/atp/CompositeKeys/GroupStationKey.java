@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @Embeddable
-public class RoadStationKey implements Serializable {
-    private Long trip;
+public class GroupStationKey implements Serializable {
+    private Long group;
     private Long station;
 }

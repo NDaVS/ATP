@@ -31,7 +31,7 @@ public class BusService {
                 busDTO.setModel(bus.getBusSpec().getModel());
                 busDTO.setNumber_of_sits(bus.getBusSpec().getNumber_of_sits());
                 if (bus.getDriver() != null) {
-                    busDTO.setDriver_ID(bus.getDriver().getId());
+                    busDTO.setDrive_id(bus.getDriver().getId());
                 }
                 buses.add(busDTO);
             }
@@ -48,7 +48,7 @@ public class BusService {
             busDTO.setNumber_of_sits(bus.getBusSpec().getNumber_of_sits());
             busDTO.setModel(bus.getBusSpec().getModel());
             if (bus.getDriver() != null) {
-                busDTO.setDriver_ID(bus.getDriver().getId());
+                busDTO.setDrive_id(bus.getDriver().getId());
             }
             return busDTO;
         } catch (Exception e) {

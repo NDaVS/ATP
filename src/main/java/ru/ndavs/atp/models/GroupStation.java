@@ -3,18 +3,18 @@ package ru.ndavs.atp.models;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.ndavs.atp.CompositeKeys.RoadStationKey;
+import ru.ndavs.atp.CompositeKeys.GroupStationKey;
 
 @Entity
 @Table(name = "trip_station")
 @Data
 @NoArgsConstructor
-@IdClass(RoadStationKey.class)
-public class RoadStation {
+@IdClass(GroupStationKey.class)
+public class GroupStation {
     @Id
-    @ManyToOne
-    @JoinColumn(name = "trip_id", referencedColumnName = "id")
-    private Trip trip;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id", referencedColumnName = "group_id")
+    private Group group;
 
     @Id
     @ManyToOne
