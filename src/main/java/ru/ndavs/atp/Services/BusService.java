@@ -29,7 +29,10 @@ public class BusService {
             for (Bus bus : busRepository.findAll()) {
                 BusDTO busDTO = modelMapper.map(bus, BusDTO.class);
                 busDTO.setModel(bus.getBusSpec().getModel());
-                busDTO.setNumberOfSits(bus.getBusSpec().getNumber_of_sits());
+                busDTO.setNumber_of_sits(bus.getBusSpec().getNumber_of_sits());
+                if (bus.getDriver() != null) {
+                    busDTO.setDriver_ID(bus.getDriver().getId());
+                }
                 buses.add(busDTO);
             }
             return buses;
@@ -42,8 +45,11 @@ public class BusService {
         try {
             Bus bus = busRepository.findById(id).get();
             BusDTO busDTO = modelMapper.map(bus, BusDTO.class);
-            busDTO.setNumberOfSits(bus.getBusSpec().getNumber_of_sits());
+            busDTO.setNumber_of_sits(bus.getBusSpec().getNumber_of_sits());
             busDTO.setModel(bus.getBusSpec().getModel());
+            if (bus.getDriver() != null) {
+                busDTO.setDriver_ID(bus.getDriver().getId());
+            }
             return busDTO;
         } catch (Exception e) {
             throw new IllegalStateException("Не удалось получить автобус : " + e.getMessage() + " | | " + e.getStackTrace());
@@ -56,7 +62,7 @@ public class BusService {
             bus.setBusSpec(busSpecRepository.findById(postBusDTO.getModel()).get());
             busRepository.save(bus);
             BusDTO busDTO = modelMapper.map(bus, BusDTO.class);
-            busDTO.setNumberOfSits(bus.getBusSpec().getNumber_of_sits());
+            busDTO.setNumber_of_sits(bus.getBusSpec().getNumber_of_sits());
             busDTO.setModel(bus.getBusSpec().getModel());
             return busDTO;
         } catch (Exception e) {
@@ -69,10 +75,11 @@ public class BusService {
             Bus bus = busRepository.getReferenceById(id);
             bus.setCode(postBusDTO.getCode());
             bus.setStatus(postBusDTO.getStatus());
+
             bus.setBusSpec(busSpecRepository.findById(postBusDTO.getModel()).get());
             busRepository.save(bus);
             BusDTO busDTO = modelMapper.map(bus, BusDTO.class);
-            busDTO.setNumberOfSits(bus.getBusSpec().getNumber_of_sits());
+            busDTO.setNumber_of_sits(bus.getBusSpec().getNumber_of_sits());
             busDTO.setModel(bus.getBusSpec().getModel());
             return busDTO;
         } catch (Error e) {

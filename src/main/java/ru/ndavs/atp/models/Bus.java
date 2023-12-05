@@ -24,7 +24,6 @@ public class Bus {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id", referencedColumnName = "id")
-
     private Driver driver;
 
     @Column(name = "code")

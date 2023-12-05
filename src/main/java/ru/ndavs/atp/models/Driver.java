@@ -15,6 +15,8 @@ public class Driver {
     private String surname;
     private String driver_id;
     private String email;
+    private String phone_number;
+
     private String role;
     private String login;
     private String password;

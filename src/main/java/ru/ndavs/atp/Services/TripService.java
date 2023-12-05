@@ -65,6 +65,7 @@ public class TripService {
             for (Long id: postTripDTO.getDays_id()){
                 days.add(daysRepository.findById(id).get());
             }
+            trip.setDays(days);
             tripRepository.save(trip);
             return trip;
         }catch (Exception e) {

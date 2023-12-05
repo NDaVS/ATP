@@ -6,6 +6,7 @@ import java.util.List;
 
 @Data
 public class PostStationsCostDTO {
-    private List<Long> stations_ids;
-    private List<Integer> cost;
+    private Long stations_1_id;
+    private Long stations_2_id;
+    private Integer cost;
 }

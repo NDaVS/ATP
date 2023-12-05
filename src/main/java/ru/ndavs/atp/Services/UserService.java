@@ -70,6 +70,7 @@ public class UserService {
             user.setFirst_name(postUserDTO.getFirst_name());
             user.setFather_name(postUserDTO.getSurname());
             user.setLast_name(postUserDTO.getLast_name());
+            user.setPhone_number(postUserDTO.getPhone_number());
             user.setRole(postUserDTO.getRole());
             user.setLogin(postUserDTO.getLogin());
             user.setPassword(postUserDTO.getPassword());
@@ -119,6 +120,7 @@ public class UserService {
             driver.setPassword(postDriverDTO.getPassword());
             driver.setDriver_id(postDriverDTO.getDriver_id());
             driver.setEmail(postDriverDTO.getEmail());
+            driver.setPhone_number(postDriverDTO.getPhone_number());
             driver.setFirst_name(postDriverDTO.getFirst_name());
             driver.setLast_name(postDriverDTO.getLast_name());
             driver.setSurname(postDriverDTO.getSurname());

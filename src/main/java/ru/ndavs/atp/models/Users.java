@@ -36,12 +36,14 @@ public class Users {
     private String father_name;
 
     @Column(name = "email")
-    @NotNull
     private String email;
 
     @Column(name = "role")
     @NotNull
     private String role;
+
+    private String phone_number;
+
 
     @Column(name = "login")
     @NotNull
