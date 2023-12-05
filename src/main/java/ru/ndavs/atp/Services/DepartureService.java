@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import ru.ndavs.atp.DTO.PostDepartureDTO;
 import ru.ndavs.atp.Repositories.DepartureRepository;
+import ru.ndavs.atp.Repositories.TripRepository;
 import ru.ndavs.atp.models.Departures;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DepartureService {
     private final DepartureRepository departureRepository;
+    private final TripRepository tripRepository;
     private final ModelMapper modelMapper;
 
     public List<Departures> getAllDepartures(){
@@ -27,12 +29,14 @@ public class DepartureService {
 
     public Departures addNewDeparture(PostDepartureDTO postDepartureDTO){
         Departures departure = modelMapper.map(postDepartureDTO, Departures.class);
+        departure.setTrip(tripRepository.findById(postDepartureDTO.getTrip_id()).get());
         departureRepository.save(departure);
         return departure;
     }
 
     public Departures updateDepartureById(PostDepartureDTO postDepartureDTO, Long id){
         Departures departure = departureRepository.findById(id).get();
+        departure.setTrip(tripRepository.findById(postDepartureDTO.getTrip_id()).get());
         departure.setDate(postDepartureDTO.getDate());
         departureRepository.save(departure);
         return departure;
@@ -40,6 +44,7 @@ public class DepartureService {
 
     public Departures deleteDepartureById(Long id){
         Departures departure = departureRepository.findById(id).get();
+        departure.setTrip(null);
         departureRepository.delete(departure);
         return departure;
     }

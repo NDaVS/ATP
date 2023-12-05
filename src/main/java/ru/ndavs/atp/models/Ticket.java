@@ -12,8 +12,8 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "departure_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "departure_id", referencedColumnName = "id")
     private Departures departures;
 
     private Long bus_route_id;

@@ -16,8 +16,12 @@ public class Departures {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date date;
-    @OneToMany
-    @JoinColumn(name = "ticket_id")
+    private String status;
+    @OneToMany()
+    @JoinColumn(name = "ticket_id", referencedColumnName = "id")
     private List<Ticket> tickets;
-    //trip
+
+    @ManyToOne
+    @JoinColumn(name = "trip_id", referencedColumnName = "id")
+    private Trip trip;
 }

@@ -19,8 +19,11 @@ public class Road {
     @Column(name = "time")
     private String time;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Station> stations;
+
+    @ManyToOne
+    private StationCost stationCost;
 
     @Column(name = "sort")
     private String sort;

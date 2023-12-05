@@ -18,8 +18,8 @@ public class Driver {
     private String role;
     private String login;
     private String password;
-    @OneToOne
-    @JoinColumn(name = "bus_id")
-    private Bus bus;
+//    @OneToOne(fetch = FetchType.LAZY)
+////    @JoinColumn(name = "bus_id", referencedColumnName = "id")
+//    private Bus bus;
 
 }

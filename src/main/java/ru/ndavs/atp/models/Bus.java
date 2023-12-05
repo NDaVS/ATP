@@ -22,8 +22,9 @@ public class Bus {
 //    @NotNull
 //    private String model;
 
-    @OneToOne
-    @JoinColumn(name = "driver_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id", referencedColumnName = "id")
+
     private Driver driver;
 
     @Column(name = "code")
@@ -34,8 +35,8 @@ public class Bus {
     @NotNull
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "model")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "model", referencedColumnName = "model")
     private BusSpecs busSpec;
 
 //    @Column(name = "sits")

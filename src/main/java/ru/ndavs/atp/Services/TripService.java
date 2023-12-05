@@ -7,8 +7,9 @@ import ru.ndavs.atp.DTO.PostTripDTO;
 import ru.ndavs.atp.DTO.ResponseDTO;
 import ru.ndavs.atp.DTO.RoadDTO;
 import ru.ndavs.atp.DTO.TripDTO;
-import ru.ndavs.atp.Repositories.RoadRepository;
-import ru.ndavs.atp.Repositories.TripRepository;
+import ru.ndavs.atp.Repositories.*;
+import ru.ndavs.atp.models.Days;
+import ru.ndavs.atp.models.Driver;
 import ru.ndavs.atp.models.Trip;
 
 import java.util.ArrayList;
@@ -19,55 +20,70 @@ import java.util.List;
 public class TripService {
     private final TripRepository tripRepository;
     private final RoadRepository roadRepository;
+    private final BusRepository busRepository;
+    private final DriverRepository driverRepository;
+    private final DaysRepository daysRepository;
     private final ModelMapper modelMapper;
 
-    public List<TripDTO> getAllTrips() {
+    public List<Trip> getAllTrips() {
         try {
             List<Trip> tripList = tripRepository.findAll();
-            List<TripDTO> dtoList = new ArrayList<>();
-            for (Trip trip : tripList) {
-                TripDTO tripDTO = modelMapper.map(trip, TripDTO.class);
-                RoadDTO roadDTO = setTime(trip);
-                tripDTO.setRoad(roadDTO);
-                dtoList.add(tripDTO);
-            }
-            return dtoList;
+//            List<TripDTO> dtoList = new ArrayList<>();
+//            for (Trip trip : tripList) {
+//                TripDTO tripDTO = modelMapper.map(trip, TripDTO.class);
+//                RoadDTO roadDTO = setTime(trip);
+//                tripDTO.setRoad(roadDTO);
+//                dtoList.add(tripDTO);
+//            }
+            return tripList;
         }catch (Exception e) {
             throw new IllegalStateException("Не удалось получить рейсы: " + e.getMessage() + " | | " + e.getStackTrace());
         }
     }
 
-    public TripDTO getTripById(Long id) {
+    public Trip getTripById(Long id) {
         try {
             Trip trip = tripRepository.findById(id).get();
-            TripDTO tripDTO = modelMapper.map(trip, TripDTO.class);
-            RoadDTO roadDTO = setTime(trip);
-            tripDTO.setRoad(roadDTO);
-            return tripDTO;
+//            TripDTO tripDTO = modelMapper.map(trip, TripDTO.class);
+//            RoadDTO roadDTO = setTime(trip);
+//            tripDTO.setRoad(roadDTO);
+            return trip;
         } catch (Exception e) {
             throw new IllegalStateException("Не удалось получить рейс: " + e.getMessage() + " | | " + e.getStackTrace());
         }
     }
 
-    public TripDTO addNewTrip(PostTripDTO postTripDTO) {
+    public Trip addNewTrip(PostTripDTO postTripDTO) {
         try {
             Trip trip = modelMapper.map(postTripDTO, Trip.class);
             //SET DRIVER
+            trip.setBus(busRepository.findById(postTripDTO.getBus_id()).get());
+            Driver driver = driverRepository.findById(postTripDTO.getDriver_id()).get();
+            trip.setDriver(driver);
             trip.setRoad(roadRepository.findById(postTripDTO.getRoad_id()).get());
-            return getTripDTO(trip);
+            List<Days> days = new ArrayList<>();
+            for (Long id: postTripDTO.getDays_id()){
+                days.add(daysRepository.findById(id).get());
+            }
+            tripRepository.save(trip);
+            return trip;
         }catch (Exception e) {
             throw new IllegalStateException("Не удалось добавить рейс: " + e.getMessage() + " | | " + e.getStackTrace());
         }
     }
 
-    public TripDTO updateTripById(PostTripDTO postTripDTO, Long id) {
+    public Trip updateTripById(PostTripDTO postTripDTO, Long id) {
         try {
             Trip trip = tripRepository.findById(id).get();
+            trip.setBus(busRepository.findById(postTripDTO.getBus_id()).get());
+            trip.setDriver(driverRepository.getReferenceById(postTripDTO.getDriver_id()));
             trip.setRoad(roadRepository.findById(postTripDTO.getRoad_id()).get());
-            //driver
-            trip.setDays(postTripDTO.getDays());
-            trip.setDeparture_time(postTripDTO.getDeparture_time());
-            return getTripDTO(trip);
+            List<Days> days = new ArrayList<>();
+            for (Long day_id: postTripDTO.getDays_id()){
+                days.add(daysRepository.getReferenceById(day_id));
+            }
+            tripRepository.save(trip);
+            return trip;
         }catch (Exception e) {
             throw new IllegalStateException("Не удалось обновить рейс: " + e.getMessage() + " | | " + e.getStackTrace());
         }

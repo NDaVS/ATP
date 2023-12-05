@@ -12,6 +12,5 @@ public class PostBusDTO {
     private String model;
     private String code;
     private String status;
-    private Integer numberOfSits;
 }
 

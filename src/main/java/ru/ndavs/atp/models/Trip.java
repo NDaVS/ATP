@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Time;
+import java.util.List;
+
 @Entity
 @Table(name = "sсhedule")
 @Data
@@ -17,18 +20,24 @@ public class Trip {
     private String departure_time;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "road", referencedColumnName = "id")
+    @JoinColumn(name = "road_id", referencedColumnName = "id")
     private Road road;
 
-    @Column(name = "days")
-    private String days;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id", referencedColumnName = "id")
     private Driver driver;
 
-    public Trip(
-            String time_to
-    ) {
-        this.departure_time = time_to;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bus_id", referencedColumnName = "id")
+    private Bus bus;
+
+    //    @Column(name = "days")
+//    private String days;
+    @ManyToMany
+    @JoinTable(name = "trip_day",
+            joinColumns = @JoinColumn(name = "trip_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "day_id", referencedColumnName = "id"))
+    private List<Days> days;
+
+
 }
