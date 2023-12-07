@@ -18,9 +18,9 @@ public class Bus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name = "model")
-//    @NotNull
-//    private String model;
+    @Column(name = "model")
+    @NotNull
+    private String model;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id", referencedColumnName = "id")
@@ -38,9 +38,9 @@ public class Bus {
     @JoinColumn(name = "model", referencedColumnName = "model")
     private BusSpecs busSpec;
 
-//    @Column(name = "sits")
-//    @NotNull
-//    private Integer numberOfSits;
+    @Column(name = "sits")
+    @NotNull
+    private Integer numberOfSits;
 
 
     public Bus(

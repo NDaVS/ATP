@@ -3,6 +3,8 @@ package ru.ndavs.atp.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 public class Driver {
@@ -21,9 +23,9 @@ public class Driver {
     private String login;
     private String password;
 
+    @OneToMany(mappedBy = "driver")
+    private List<Trip> trip;
+
     private Long bus_id;
-//    @OneToOne(fetch = FetchType.LAZY)
-////    @JoinColumn(name = "bus_id", referencedColumnName = "id")
-//    private Bus bus;
 
 }
