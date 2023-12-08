@@ -3,11 +3,9 @@ package ru.ndavs.atp.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
-public class PostStationsCostDTO {
+public class PostStationTimeDTO {
     private Long stations_1_id;
     private Long stations_2_id;
-    private Integer cost;
+    private Integer time;
 }

@@ -5,9 +5,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-@Embeddable
 @Data
-public class StationsCostKey implements Serializable {
-    private Long station_1;
-    private Long station_2;
+@Embeddable
+public class RoadStationKey implements Serializable {
+    private Long id;
+    private Long station;
 }

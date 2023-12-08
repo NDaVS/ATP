@@ -5,9 +5,9 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-@Data
 @Embeddable
-public class GroupStationKey implements Serializable {
-    private Long group;
-    private Long station;
+@Data
+public class StationsKeyT implements Serializable {
+    private Long station_1T;
+    private Long station_2T;
 }

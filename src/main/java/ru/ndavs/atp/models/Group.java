@@ -21,6 +21,6 @@ public class Group {
     @OneToMany(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("group")
     @JoinColumn(name = "group_station_id", referencedColumnName = "group_id")
-    private List<GroupStation> stations;
+    private List<RoadStation> stations;
 
 }

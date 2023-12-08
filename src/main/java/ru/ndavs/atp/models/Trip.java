@@ -31,8 +31,7 @@ public class Trip {
     @JoinColumn(name = "bus_id", referencedColumnName = "id")
     private Bus bus;
 
-    //    @Column(name = "days")
-//    private String days;
+
     @ManyToMany
     @JoinTable(name = "trip_day",
             joinColumns = @JoinColumn(name = "trip_id", referencedColumnName = "id"),

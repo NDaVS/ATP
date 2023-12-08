@@ -2,6 +2,7 @@ package ru.ndavs.atp.Services;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ndavs.atp.DTO.DepartureDTO;
 import ru.ndavs.atp.DTO.PostDepartureDTO;
@@ -18,7 +19,7 @@ public class DepartureService {
     private final DepartureRepository departureRepository;
     private final TripRepository tripRepository;
     private final ModelMapper modelMapper;
-
+    @Autowired
     private final TripService tripService;
 
     public List<DepartureDTO> getAllDepartures(){

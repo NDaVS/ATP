@@ -8,6 +8,5 @@ import lombok.NoArgsConstructor;
 public class StationDTO {
     private Long id;
     private String name;
-    private Integer serial_number;
 
 }

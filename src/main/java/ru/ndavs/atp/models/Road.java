@@ -13,14 +13,12 @@ public class Road {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id", referencedColumnName = "group_id")
-    private Group group;
-
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<RoadStation> stations;
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<StationCost> stationCost;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<StationTime> stationTime;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<RoadStation> roadStations;
 }

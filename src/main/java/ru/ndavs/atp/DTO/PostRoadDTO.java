@@ -11,10 +11,6 @@ import java.util.List;
 @Data
 @RequiredArgsConstructor
 public class PostRoadDTO {
-    private String name;
-    private List<Integer> price;
-    private List<Integer> time;
-    private List<Integer> sort;
     private List<Long> stations_id;
 
 }
