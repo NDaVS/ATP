@@ -17,11 +17,11 @@ public class Departures {
     private Long id;
     private Date date;
     private String status;
-    @OneToMany()
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "ticket_id", referencedColumnName = "id")
     private List<Ticket> tickets;
 
-    @ManyToOne
+    @ManyToOne( fetch = FetchType.LAZY)
     @JoinColumn(name = "trip_id", referencedColumnName = "id")
     private Trip trip;
 }

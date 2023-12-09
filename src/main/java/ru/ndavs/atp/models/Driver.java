@@ -1,5 +1,6 @@
 package ru.ndavs.atp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,6 +25,7 @@ public class Driver {
     private String password;
 
     @OneToMany(mappedBy = "driver")
+
     private List<Trip> trip;
 
     private Long bus_id;
