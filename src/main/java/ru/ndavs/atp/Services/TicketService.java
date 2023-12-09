@@ -6,11 +6,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.ndavs.atp.DTO.PostBusSpecDTO;
+import ru.ndavs.atp.DTO.PostDepartureDTO;
 import ru.ndavs.atp.DTO.PostTicketDTO;
+import ru.ndavs.atp.DTO.TicketDTO;
 import ru.ndavs.atp.Repositories.DepartureRepository;
 import ru.ndavs.atp.Repositories.TicketRepository;
+import ru.ndavs.atp.models.Departures;
 import ru.ndavs.atp.models.Ticket;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -20,26 +25,79 @@ public class TicketService {
     private final DepartureRepository departureRepository;
     private final ModelMapper modelMapper;
 
-    public List<Ticket> getAllTickets(){
+    private final DepartureService departureService;
+
+    public List<TicketDTO> getAllTickets(){
         List<Ticket> tickets = ticketRepository.findAll();
-        return tickets;
+        List<TicketDTO> dtos = new ArrayList<>();
+        for (Ticket t: tickets){
+            dtos.add(DTO_maker(t));
+        }
+        return dtos;
     }
     // По рейсу
     // По дате
 
-    public Ticket getTicketById(Long id){
+    public TicketDTO getTicketById(Long id){
         Ticket ticket = ticketRepository.getReferenceById(id);
-        return ticket;
+        return DTO_maker(ticket);
     }
 
-    public Ticket addNewTicket(PostTicketDTO postTicketDTO){
+    public TicketDTO addNewTicket(PostTicketDTO postTicketDTO){
+        if(postTicketDTO.getDeparture_id().equals(0L)){
+            Departures departures = departureService.addNewDepartureNotDTO(new PostDepartureDTO(postTicketDTO.getDate(), postTicketDTO.getTrip_id(), "active"));
+            postTicketDTO.setDeparture_id(departures.getId());
+        }
         Ticket ticket = modelMapper.map(postTicketDTO, Ticket.class);
         ticket.setDepartures(departureRepository.getReferenceById(postTicketDTO.getDeparture_id()));
+        Departures departures = ticket.getDepartures();
+        List<Ticket> tickets = departures.getTickets();
+        if(tickets == null){
+            tickets = new ArrayList<>();
+        }
         ticketRepository.save(ticket);
-        return ticket;
+        tickets.add(ticket);
+        departures.setTickets(tickets);
+        departureRepository.save(departures);
+        return DTO_maker(ticket);
     }
 
-    public Ticket updateTicketById(PostTicketDTO postTicketDTO, Long id){
+    public List<TicketDTO> addFewTickets(List<PostTicketDTO> dtos){
+        List<TicketDTO> tickets = new ArrayList<>();
+        for (PostTicketDTO ticketDTO: dtos){
+//            Ticket ticket = modelMapper.map(ticketDTO, Ticket.class);
+//            ticket.setDepartures(departureRepository.getReferenceById(ticketDTO.getDeparture_id()));
+//            ticketRepository.save(ticket);
+            tickets.add(addNewTicket(ticketDTO));
+        }
+
+        return tickets;
+    }
+
+    public List<TicketDTO> getTicketsByDeparture(Long dep_id){
+        Departures departure = departureRepository.getReferenceById(dep_id);
+        List<Ticket> tickets = ticketRepository.findTicketsByDepartures(departure);
+        List<TicketDTO> dtos = new ArrayList<>();
+        for (Ticket t: tickets){
+            dtos.add(DTO_maker(t));
+        }
+        return dtos;
+    }
+
+    public List<TicketDTO> getTicketsByDate(Date date){
+        List<Departures> departures = departureRepository.findDeparturesByDate(date);
+        List<Ticket> tickets = new ArrayList<>();
+        List<TicketDTO> dtos = new ArrayList<>();
+        for (Departures dep: departures){
+            tickets.addAll(ticketRepository.findTicketsByDepartures(dep));
+        }
+        for (Ticket t: tickets){
+            dtos.add(DTO_maker(t));
+        }
+        return dtos;
+    }
+
+    public TicketDTO updateTicketById(PostTicketDTO postTicketDTO, Long id){
         Ticket ticket = ticketRepository.getReferenceById(id);
         ticket.setDeparture_point(postTicketDTO.getDeparture_point());
         ticket.setBus_route_id(postTicketDTO.getBus_route_id());
@@ -51,14 +109,30 @@ public class TicketService {
         ticket.setPlace_of_arrival(postTicketDTO.getPlace_of_arrival());
         ticket.setDepartures(departureRepository.getReferenceById(postTicketDTO.getDeparture_id()));
         ticketRepository.save(ticket);
-        return ticket;
+        return DTO_maker(ticket);
     }
 
-    public Ticket deleteTicketById(Long id){
+    public TicketDTO deleteTicketById(Long id){
         Ticket ticket = ticketRepository.getReferenceById(id);
         ticket.setDepartures(null);
         ticketRepository.delete(ticket);
-        return ticket;
+        return DTO_maker(ticket);
+    }
+
+    public static TicketDTO DTO_maker(Ticket ticket){
+        TicketDTO dto = new TicketDTO();
+        dto.setDeparture_id(ticket.getDepartures().getId());
+        dto.setBus_route_id(ticket.getBus_route_id());
+        dto.setPlace_number(ticket.getPlace_number());
+        dto.setTrip_id(ticket.getTrip_id());
+        dto.setDate(ticket.getDate());
+        dto.setIs_visited(ticket.getIs_visited());
+        dto.setFirst_name(ticket.getFirst_name());
+        dto.setLast_name(ticket.getLast_name());
+        dto.setSurname(ticket.getSurname());
+        dto.setDeparture_point(ticket.getDeparture_point());
+        dto.setPlace_of_arrival(ticket.getPlace_of_arrival());
+        return dto;
     }
 
 }

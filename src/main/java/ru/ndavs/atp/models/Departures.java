@@ -1,5 +1,6 @@
 package ru.ndavs.atp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class Departures {
     private String status;
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "ticket_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("departures")
     private List<Ticket> tickets;
 
     @ManyToOne( fetch = FetchType.LAZY)

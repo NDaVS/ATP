@@ -1,6 +1,7 @@
 package ru.ndavs.atp.DTO;
 
 import lombok.Data;
+import ru.ndavs.atp.models.Ticket;
 
 import java.util.Date;
 import java.util.List;
