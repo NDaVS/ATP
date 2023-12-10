@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 public class ResponseDTO {
     public Long code;
     public String message;
-    public Object data;
+
 }

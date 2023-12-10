@@ -16,7 +16,7 @@ services:
 
 
   app:
-    image: 'lifrut/atp-ns'
+    image: 'lifrut/atp-ns:v2'
     restart: always
     container_name: 'java-app'
     depends_on:

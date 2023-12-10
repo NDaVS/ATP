@@ -3,6 +3,7 @@ package ru.ndavs.atp.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.ndavs.atp.DTO.GetTicketByDate;
 import ru.ndavs.atp.DTO.PostTicketDTO;
 import ru.ndavs.atp.Services.TicketService;
 
@@ -24,9 +25,9 @@ public class TicketController {
     private ResponseEntity<?> getTicketById(@PathVariable Long id){
         return ResponseEntity.ok(ticketService.getTicketById(id));
     }
-    @GetMapping("/get_by_date/{date}")
-    private ResponseEntity<?> getTicketByDate(@PathVariable Date date){
-        return ResponseEntity.ok(ticketService.getTicketsByDate(date));
+    @GetMapping("/get_by_date")
+    private ResponseEntity<?> getTicketByDate(@RequestBody GetTicketByDate getTicketByDate){
+        return ResponseEntity.ok(ticketService.getTicketsByDate(getTicketByDate.getDate()));
     }
 
     @GetMapping("/get_by_departure/{id}")

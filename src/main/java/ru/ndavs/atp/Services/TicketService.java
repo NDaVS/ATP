@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.ndavs.atp.DTO.PostBusSpecDTO;
-import ru.ndavs.atp.DTO.PostDepartureDTO;
-import ru.ndavs.atp.DTO.PostTicketDTO;
-import ru.ndavs.atp.DTO.TicketDTO;
+import ru.ndavs.atp.DTO.*;
 import ru.ndavs.atp.Repositories.DepartureRepository;
 import ru.ndavs.atp.Repositories.TicketRepository;
 import ru.ndavs.atp.models.Departures;
@@ -64,11 +61,20 @@ public class TicketService {
 
     public List<TicketDTO> addFewTickets(List<PostTicketDTO> dtos){
         List<TicketDTO> tickets = new ArrayList<>();
+        boolean is_add = false;
+        Long dep_id = 0L;
         for (PostTicketDTO ticketDTO: dtos){
 //            Ticket ticket = modelMapper.map(ticketDTO, Ticket.class);
 //            ticket.setDepartures(departureRepository.getReferenceById(ticketDTO.getDeparture_id()));
 //            ticketRepository.save(ticket);
-            tickets.add(addNewTicket(ticketDTO));
+            if (is_add){
+
+                ticketDTO.setDeparture_id(dep_id);
+            }
+            TicketDTO tDTO = addNewTicket(ticketDTO);
+            tickets.add(tDTO);
+            is_add = true;
+            dep_id = tDTO.getDeparture_id();
         }
 
         return tickets;
@@ -112,20 +118,25 @@ public class TicketService {
         return DTO_maker(ticket);
     }
 
-    public TicketDTO deleteTicketById(Long id){
+    public ResponseDTO deleteTicketById(Long id){
         Ticket ticket = ticketRepository.getReferenceById(id);
         ticket.setDepartures(null);
         ticketRepository.delete(ticket);
-        return DTO_maker(ticket);
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setMessage("Success");
+        responseDTO.setCode(200L);
+        return responseDTO;
     }
 
     public static TicketDTO DTO_maker(Ticket ticket){
         TicketDTO dto = new TicketDTO();
+        dto.setId(ticket.getId());
         dto.setDeparture_id(ticket.getDepartures().getId());
         dto.setBus_route_id(ticket.getBus_route_id());
         dto.setPlace_number(ticket.getPlace_number());
         dto.setTrip_id(ticket.getTrip_id());
         dto.setDate(ticket.getDate());
+        dto.setTime(ticket.getTime());
         dto.setIs_visited(ticket.getIs_visited());
         dto.setFirst_name(ticket.getFirst_name());
         dto.setLast_name(ticket.getLast_name());

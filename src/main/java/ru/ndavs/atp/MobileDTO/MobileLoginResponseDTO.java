@@ -1,6 +1,7 @@
 package ru.ndavs.atp.MobileDTO;
 
 import lombok.Data;
+import ru.ndavs.atp.DTO.DepartureDTO;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ public class MobileLoginResponseDTO {
     private String patronymic;
     private Long bus_code;
     private String token;
-    private List<RouteDTO> daily_schedule;
+    private List<MobileDepartureDTO> daily_schedule;
 }

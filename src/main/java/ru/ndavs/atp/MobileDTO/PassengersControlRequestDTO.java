@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class PassengersControlRequestDTO {
     private Long route_id;
-    private List<String> tickets_id;
+    private List<Long> tickets_id;
 }

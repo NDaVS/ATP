@@ -81,6 +81,18 @@ public class UserService {
             throw new IllegalStateException("Something went wrong: " + e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()) + "\n");
         }
     }
+
+    public UserDTO updateUserCred(String login, String password, Long id){
+        try {
+            Users user = userRepository.getReferenceById(id);
+            user.setLogin(login);
+            user.setPassword(password);
+            userRepository.save(user);
+            return modelMapper.map(user, UserDTO.class);
+        } catch (Exception e) {
+            throw new IllegalStateException("Something went wrong: ");
+        }
+    }
     public UserDTO deleteUserById(Long id){
         try{
             Users user =  userRepository.getReferenceById(id);
@@ -116,14 +128,24 @@ public class UserService {
     public DriverDTO updateDriverBus(PostDriverDTO postDriverDTO,Long driverId) {
         try {
             Driver driver = driverRepository.findById(driverId).get();
-            driver.setLogin(postDriverDTO.getLogin());
-            driver.setPassword(postDriverDTO.getPassword());
             driver.setDriver_id(postDriverDTO.getDriver_id());
             driver.setEmail(postDriverDTO.getEmail());
             driver.setPhone_number(postDriverDTO.getPhone_number());
             driver.setFirst_name(postDriverDTO.getFirst_name());
             driver.setLast_name(postDriverDTO.getLast_name());
             driver.setSurname(postDriverDTO.getSurname());
+            driverRepository.save(driver);
+//            responseDTO.data.bus = modelMapper.map(bus, BusDTO.class);
+            return modelMapper.map(driver, DriverDTO.class);
+        } catch (Exception e) {
+            throw new IllegalStateException("Something went wrong: ");
+        }
+    }
+    public DriverDTO updateDriverCred(String login, String password, Long id){
+        try {
+            Driver driver = driverRepository.findById(id).get();
+            driver.setLogin(login);
+            driver.setPassword(password);
             driverRepository.save(driver);
 //            responseDTO.data.bus = modelMapper.map(bus, BusDTO.class);
             return modelMapper.map(driver, DriverDTO.class);

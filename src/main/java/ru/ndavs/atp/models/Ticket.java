@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
@@ -25,6 +26,7 @@ public class Ticket {
     private Long trip_id;
 
     private Date date;
+    private Time time;
     private String departure_point;
     private String place_of_arrival;
 

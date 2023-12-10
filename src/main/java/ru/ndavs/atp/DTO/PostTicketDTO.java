@@ -2,6 +2,7 @@ package ru.ndavs.atp.DTO;
 
 import lombok.Data;
 
+import java.sql.Time;
 import java.util.Date;
 
 @Data
@@ -12,6 +13,7 @@ public class PostTicketDTO {
     private Long trip_id;
 
     private Date date;
+    private Time time;
     private String departure_point;
     private String place_of_arrival;
 

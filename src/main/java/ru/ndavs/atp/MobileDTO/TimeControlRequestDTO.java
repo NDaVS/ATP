@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class TimeControlRequestDTO {
-    private Long route_id;
-    private List<String> times;
+    private Long departure_id;
+    private String status;
 }

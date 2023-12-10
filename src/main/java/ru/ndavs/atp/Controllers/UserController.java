@@ -43,6 +43,11 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUserById(postUserDTO, id));
     }
 
+    @PatchMapping(path = "/user/{id}")
+    public ResponseEntity patchUserCred(@RequestParam String login, @RequestParam String password, @PathVariable Long id) {
+        return ResponseEntity.ok(userService.updateUserCred(login, password, id));
+    }
+
     @DeleteMapping(path = "/user/{id}")
     public ResponseEntity addNewUser(@PathVariable Long id) {
         return ResponseEntity.ok(userService.deleteUserById(id));
@@ -66,6 +71,10 @@ public class UserController {
     @PutMapping(path = "/driver/{id}")
     public ResponseEntity patchDriver(@RequestBody PostDriverDTO postDriverDTO, @PathVariable Long id) {
         return ResponseEntity.ok(userService.updateDriverBus(postDriverDTO, id));
+    }
+    @PatchMapping(path = "/driver/{id}")
+    public ResponseEntity patchDriverCred(@RequestParam String login, @RequestParam String password, @PathVariable Long id) {
+        return ResponseEntity.ok(userService.updateDriverCred(login, password, id));
     }
 
     @DeleteMapping(path = "/driver/{id}")

@@ -85,10 +85,13 @@ public class DepartureService {
     public DepartureDTO DTO_maker(Departures departure){
         DepartureDTO dto = new DepartureDTO();
         List<TicketDTO> tickets = new ArrayList<>();
-        for (Ticket t: departure.getTickets()){
-            tickets.add(TicketService.DTO_maker(t));
+        if (!(departure.getTickets() == null)){
+            for (Ticket t: departure.getTickets()){
+                tickets.add(TicketService.DTO_maker(t));
+            }
+            dto.setTickets(tickets);
+
         }
-        dto.setTickets(tickets);
         dto.setId(departure.getId());
         dto.setStatus(departure.getStatus());
         dto.setDate(departure.getDate());
