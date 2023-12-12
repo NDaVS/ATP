@@ -29,17 +29,9 @@ public class MobileController {
         }
     }
 
-    @PostMapping(path = "/passengerControl")
-    public ResponseEntity<?> passengerControl(@RequestBody PassengersControlRequestDTO passengers, @RequestParam(required = false, defaultValue = "default") String hash) {
-        try {
-            mobileService.markPassengers(passengers);
-            return ResponseEntity.ok().body("Success");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
-    }
 
-    @PostMapping(path = "/timeControl")
+
+    @PostMapping(path = "/Control")
     public ResponseEntity<?> timeControl(@RequestBody TimeControlRequestDTO time, @RequestParam(required = false, defaultValue = "default") String hash) {
         try {
             mobileService.markTime(time);

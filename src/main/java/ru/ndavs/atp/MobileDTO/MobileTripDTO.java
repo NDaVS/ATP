@@ -13,7 +13,7 @@ import java.util.List;
 public class MobileTripDTO {
     private Long id;
     private String departure_time;
-    private List<String> days;
+    private List<Long> days;
     private DriverDTO driver;
     private BusDTO bus;
     private List<String> stations;

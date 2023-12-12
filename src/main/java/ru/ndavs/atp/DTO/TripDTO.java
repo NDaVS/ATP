@@ -9,7 +9,7 @@ import java.util.List;
 public class TripDTO {
     private Long id;
     private String departure_time;
-    private List<String> days;
+    private List<Long> days;
     private DriverDTO driver;
     private BusDTO bus;
     private RoadDTO road;

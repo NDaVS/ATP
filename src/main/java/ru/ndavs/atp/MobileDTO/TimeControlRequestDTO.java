@@ -9,5 +9,7 @@ import java.util.List;
 public class TimeControlRequestDTO {
     private Long departure_id;
     private Time arrive_time;
+    private List<Integer> timeslots;
+    private List<Long> tickets_id;
     private String status;
 }

@@ -34,17 +34,14 @@ public class TripService {
                 TripDTO tripDTO = new TripDTO();
                 tripDTO.setDeparture_time(trip.getDeparture_time());
                 tripDTO.setId(trip.getId());
-                List<String> days_name = new ArrayList<>();
+                List<Long> days_name = new ArrayList<>();
                 for (Days day: trip.getDays()){
-                    days_name.add(day.getName());
+                    days_name.add(day.getId());
                 }
                 tripDTO.setDays(days_name);
                 RoadDTO roadDTO = roadService.getRoadById(trip.getRoad().getId());
-                DriverDTO driverDTO = modelMapper.map(trip.getDriver(), DriverDTO.class);
-                BusDTO busDTO = modelMapper.map(trip.getBus(), BusDTO.class);
-                busDTO.setNumber_of_sits(trip.getBus().getBusSpec().getNumber_of_sits());
-                tripDTO.setDriver(driverDTO);
-                tripDTO.setBus(busDTO);
+                tripDTO.setBus(busService.getBusById(trip.getBus().getId()));
+                tripDTO.setDriver(modelMapper.map(trip.getDriver(), DriverDTO.class));
                 tripDTO.setRoad(roadDTO);
                 dtoList.add(tripDTO);
             }
@@ -60,17 +57,14 @@ public class TripService {
             TripDTO tripDTO = new TripDTO();
             tripDTO.setDeparture_time(trip.getDeparture_time());
             tripDTO.setId(trip.getId());
-            List<String> days_name = new ArrayList<>();
+            List<Long> days_name = new ArrayList<>();
             for (Days day: trip.getDays()){
-                days_name.add(day.getName());
+                days_name.add(day.getId());
             }
             tripDTO.setDays(days_name);
             RoadDTO roadDTO = roadService.getRoadById(trip.getRoad().getId());
-            DriverDTO driverDTO = modelMapper.map(trip.getDriver(), DriverDTO.class);
-            BusDTO busDTO = modelMapper.map(trip.getBus(), BusDTO.class);
-            busDTO.setNumber_of_sits(trip.getBus().getBusSpec().getNumber_of_sits());
-            tripDTO.setDriver(driverDTO);
-            tripDTO.setBus(busDTO);
+            tripDTO.setBus(busService.getBusById(trip.getBus().getId()));
+            tripDTO.setDriver(modelMapper.map(trip.getDriver(), DriverDTO.class));
             tripDTO.setRoad(roadDTO);
             return tripDTO;
         } catch (Exception e) {
@@ -87,10 +81,10 @@ public class TripService {
             trip.setDriver(driver);
             trip.setRoad(roadRepository.findById(postTripDTO.getRoad_id()).get());
             List<Days> days = new ArrayList<>();
-            List<String> days_name = new ArrayList<>();
+            List<Long> days_id = new ArrayList<>();
             for (Long id: postTripDTO.getDays_id()){
                 days.add(daysRepository.findById(id).get());
-                days_name.add(daysRepository.findById(id).get().getName());
+                days_id.add(daysRepository.findById(id).get().getId());
             }
             trip.setDays(days);
             tripRepository.save(trip);
@@ -98,7 +92,7 @@ public class TripService {
             tripDTO.setBus(busService.getBusById(trip.getBus().getId()));
             tripDTO.setDriver(modelMapper.map(trip.getDriver(), DriverDTO.class));
             tripDTO.setRoad(roadService.getRoadById(trip.getRoad().getId()));
-            tripDTO.setDays(days_name);
+            tripDTO.setDays(days_id);
             tripDTO.setDeparture_time(trip.getDeparture_time());
             tripDTO.setId(trip.getId());
 
@@ -116,10 +110,10 @@ public class TripService {
             trip.setRoad(roadRepository.findById(postTripDTO.getRoad_id()).get());
             trip.setDeparture_time(postTripDTO.getDeparture_time());
             List<Days> days = new ArrayList<>();
-            List<String> days_name = new ArrayList<>();
+            List<Long> days_id = new ArrayList<>();
             for (Long id1: postTripDTO.getDays_id()){
                 days.add(daysRepository.findById(id1).get());
-                days_name.add(daysRepository.findById(id1).get().getName());
+                days_id.add(daysRepository.findById(id1).get().getId());
             }
             trip.setDays(days);
             tripRepository.save(trip);
@@ -127,7 +121,7 @@ public class TripService {
             tripDTO.setBus(busService.getBusById(trip.getBus().getId()));
             tripDTO.setDriver(modelMapper.map(trip.getDriver(), DriverDTO.class));
             tripDTO.setRoad(roadService.getRoadById(trip.getRoad().getId()));
-            tripDTO.setDays(days_name);
+            tripDTO.setDays(days_id);
             tripDTO.setDeparture_time(trip.getDeparture_time());
             tripDTO.setId(trip.getId());
             return tripDTO;

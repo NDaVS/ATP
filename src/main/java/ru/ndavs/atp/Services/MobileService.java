@@ -28,28 +28,17 @@ public class MobileService {
     private final TicketRepository ticketRepository;
     private final DepartureRepository departureRepository;
 
-    public void markPassengers(PassengersControlRequestDTO passengers) {
-        for (Long id: passengers.getTickets_id()){
+
+
+    public ResponseDTO markTime(TimeControlRequestDTO time) {
+        Optional<Departures> dep = departureRepository.findById(time.getDeparture_id());
+        for (Long id: time.getTickets_id()){
             Optional<Ticket> ticket = ticketRepository.findById(id);
             if (ticket.isEmpty()) throw new IllegalStateException("The ticket was not found");
             Ticket t = ticket.get();
             t.setIs_visited(true);
             ticketRepository.save(t);
         }
-//        passengers.getTickets_id().stream()
-//                .map(string_id -> {
-//                    Long id = Long.parseLong(string_id);
-//                    Optional<Ticket> ticket = ticketRepository.findById(id);
-//                    if (ticket.isEmpty()) throw new IllegalStateException("The ticket was not found");
-//                    Ticket t = ticket.get();
-//                    t.setIs_visited(true);
-//                    ticketRepository.save(t);
-//                    return id;
-//                });
-    }
-
-    public ResponseDTO markTime(TimeControlRequestDTO time) {
-        Optional<Departures> dep = departureRepository.findById(time.getDeparture_id());
         if (dep.isEmpty()) throw new IllegalStateException("The dep does not exist");
         Departures departure = dep.get();
         departure.setStatus(time.getStatus());
