@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class StationCostDTO {
-    private String station_1;
-    private String station_2;
+    private Long station_1;
+    private Long station_2;
     private Integer cost;
 }

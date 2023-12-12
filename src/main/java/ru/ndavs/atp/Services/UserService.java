@@ -68,7 +68,7 @@ public class UserService {
         try {
             Users user = userRepository.getReferenceById(id);
             user.setFirst_name(postUserDTO.getFirst_name());
-            user.setFather_name(postUserDTO.getSurname());
+            user.setFather_name(postUserDTO.getFather_name());
             user.setLast_name(postUserDTO.getLast_name());
             user.setPhone_number(postUserDTO.getPhone_number());
             user.setRole(postUserDTO.getRole());
@@ -133,7 +133,7 @@ public class UserService {
             driver.setPhone_number(postDriverDTO.getPhone_number());
             driver.setFirst_name(postDriverDTO.getFirst_name());
             driver.setLast_name(postDriverDTO.getLast_name());
-            driver.setSurname(postDriverDTO.getSurname());
+            driver.setFather_name(postDriverDTO.getFather_name());
             driverRepository.save(driver);
 //            responseDTO.data.bus = modelMapper.map(bus, BusDTO.class);
             return modelMapper.map(driver, DriverDTO.class);

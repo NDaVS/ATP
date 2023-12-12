@@ -27,8 +27,8 @@ public class StationTimeService {
         List<StationTimeDTO> stationTimeDTOList = new ArrayList<>();
         for (StationTime stationTime : stationTimes) {
             StationTimeDTO stationTimeDTO = new StationTimeDTO();
-            stationTimeDTO.setStation_1(stationTime.getStation_1T().getName());
-            stationTimeDTO.setStation_2(stationTime.getStation_2T().getName());
+            stationTimeDTO.setStation_1(stationTime.getStation_1T().getId());
+            stationTimeDTO.setStation_2(stationTime.getStation_2T().getId());
             stationTimeDTO.setTime(stationTime.getTime());
             stationTimeDTOList.add(stationTimeDTO);
         }
@@ -43,8 +43,8 @@ public class StationTimeService {
         stationTime.setTime(dto.getTime());
         stationTimeRepository.save(stationTime);
         StationTimeDTO stationTimeDTO = new StationTimeDTO();
-        stationTimeDTO.setStation_1(stationTime.getStation_1T().getName());
-        stationTimeDTO.setStation_2(stationTime.getStation_2T().getName());
+        stationTimeDTO.setStation_1(stationTime.getStation_1T().getId());
+        stationTimeDTO.setStation_2(stationTime.getStation_2T().getId());
         stationTimeDTO.setTime(stationTime.getTime());
         return stationTimeDTO;
     }
@@ -60,8 +60,8 @@ public class StationTimeService {
             stationTime.setTime(dto.getTime());
             stationTimeRepository.save(stationTime);
             StationTimeDTO stationTimeDTO = new StationTimeDTO();
-            stationTimeDTO.setStation_1(stationTime.getStation_1T().getName());
-            stationTimeDTO.setStation_2(stationTime.getStation_2T().getName());
+            stationTimeDTO.setStation_1(stationTime.getStation_1T().getId());
+            stationTimeDTO.setStation_2(stationTime.getStation_2T().getId());
             stationTimeDTO.setTime(stationTime.getTime());
             dt.add(stationTimeDTO);
         }
@@ -76,8 +76,8 @@ public class StationTimeService {
         stationTime.setTime(dto.getTime());
         stationTimeRepository.save(stationTime);
         StationTimeDTO stationTimeDTO = new StationTimeDTO();
-        stationTimeDTO.setStation_1(stationTime.getStation_1T().getName());
-        stationTimeDTO.setStation_2(stationTime.getStation_2T().getName());
+        stationTimeDTO.setStation_1(stationTime.getStation_1T().getId());
+        stationTimeDTO.setStation_2(stationTime.getStation_2T().getId());
         stationTimeDTO.setTime(stationTime.getTime());
         return stationTimeDTO;
     }
@@ -89,8 +89,8 @@ public class StationTimeService {
         StationTime stationTime = stationTimeRepository.findById(stationsKeyT).get();
         stationTimeRepository.delete(stationTime);
         StationTimeDTO stationTimeDTO = new StationTimeDTO();
-        stationTimeDTO.setStation_1(stationTime.getStation_1T().getName());
-        stationTimeDTO.setStation_2(stationTime.getStation_2T().getName());
+        stationTimeDTO.setStation_1(stationTime.getStation_1T().getId());
+        stationTimeDTO.setStation_2(stationTime.getStation_2T().getId());
         stationTimeDTO.setTime(stationTime.getTime());
         return stationTimeDTO;
     }

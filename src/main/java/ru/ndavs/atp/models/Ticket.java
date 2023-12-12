@@ -33,6 +33,6 @@ public class Ticket {
     private Boolean is_visited = false;
     private String first_name;
     private String last_name;
-    private String surname;
+    private String father_name;
 
 }

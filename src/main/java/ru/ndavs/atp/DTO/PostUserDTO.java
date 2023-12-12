@@ -6,7 +6,7 @@ import lombok.Data;
 public class PostUserDTO {
     private String first_name;
     private String last_name;
-    private String surname;
+    private String father_name;
     private String email;
     private String phone_number;
     private String role;

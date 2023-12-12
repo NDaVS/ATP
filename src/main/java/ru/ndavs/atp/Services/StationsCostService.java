@@ -24,8 +24,8 @@ public class StationsCostService {
         List<StationCostDTO> stationCostDTOList = new ArrayList<>();
         for (StationCost stationCost : stationsCost) {
             StationCostDTO stationCostDTO = new StationCostDTO();
-            stationCostDTO.setStation_1(stationCost.getStation_1C().getName());
-            stationCostDTO.setStation_2(stationCost.getStation_2C().getName());
+            stationCostDTO.setStation_1(stationCost.getStation_1C().getId());
+            stationCostDTO.setStation_2(stationCost.getStation_2C().getId());
             stationCostDTO.setCost(stationCost.getCost());
             stationCostDTOList.add(stationCostDTO);
         }
@@ -40,8 +40,8 @@ public class StationsCostService {
         stationCost.setCost(dto.getCost());
         repository.save(stationCost);
         StationCostDTO stationCostDTO = new StationCostDTO();
-        stationCostDTO.setStation_1(stationCost.getStation_1C().getName());
-        stationCostDTO.setStation_2(stationCost.getStation_2C().getName());
+        stationCostDTO.setStation_1(stationCost.getStation_1C().getId());
+        stationCostDTO.setStation_2(stationCost.getStation_2C().getId());
         stationCostDTO.setCost(stationCost.getCost());
         return stationCostDTO;
     }
@@ -56,8 +56,8 @@ public class StationsCostService {
             stationCost.setCost(dto.getCost());
             repository.save(stationCost);
             StationCostDTO stationCostDTO = new StationCostDTO();
-            stationCostDTO.setStation_1(stationCost.getStation_1C().getName());
-            stationCostDTO.setStation_2(stationCost.getStation_2C().getName());
+            stationCostDTO.setStation_1(stationCost.getStation_1C().getId());
+            stationCostDTO.setStation_2(stationCost.getStation_2C().getId());
             stationCostDTO.setCost(stationCost.getCost());
             stationCostDTOList.add(stationCostDTO);
         }
@@ -72,8 +72,8 @@ public class StationsCostService {
         stationCost.setCost(dto.getCost());
         repository.save(stationCost);
         StationCostDTO stationCostDTO = new StationCostDTO();
-        stationCostDTO.setStation_1(stationCost.getStation_1C().getName());
-        stationCostDTO.setStation_2(stationCost.getStation_2C().getName());
+        stationCostDTO.setStation_1(stationCost.getStation_1C().getId());
+        stationCostDTO.setStation_2(stationCost.getStation_2C().getId());
         stationCostDTO.setCost(stationCost.getCost());
         return stationCostDTO;
     }
@@ -85,8 +85,8 @@ public class StationsCostService {
         StationCost stationCost = repository.findById(stationsKeyC).get();
         repository.delete(stationCost);
         StationCostDTO stationCostDTO = new StationCostDTO();
-        stationCostDTO.setStation_1(stationCost.getStation_1C().getName());
-        stationCostDTO.setStation_2(stationCost.getStation_2C().getName());
+        stationCostDTO.setStation_1(stationCost.getStation_1C().getId());
+        stationCostDTO.setStation_2(stationCost.getStation_2C().getId());
         stationCostDTO.setCost(stationCost.getCost());
         return stationCostDTO;
 

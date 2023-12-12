@@ -34,7 +34,7 @@ public class AuthorizationService {
         MobileLoginResponseDTO response = new MobileLoginResponseDTO();
         response.setFirst_name(_driver.getFirst_name());
         response.setLast_name(_driver.getLast_name());
-        response.setPatronymic(_driver.getSurname());
+        response.setPatronymic(_driver.getFather_name());
         response.setToken("token");
         response.setBus_code(_driver.getBus_id());
 

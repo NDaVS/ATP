@@ -107,7 +107,7 @@ public class TicketService {
         Ticket ticket = ticketRepository.getReferenceById(id);
         ticket.setDeparture_point(postTicketDTO.getDeparture_point());
         ticket.setBus_route_id(postTicketDTO.getBus_route_id());
-        ticket.setSurname(postTicketDTO.getSurname());
+        ticket.setFather_name(postTicketDTO.getFather_name());
         ticket.setFirst_name(postTicketDTO.getFirst_name());
         ticket.setLast_name(postTicketDTO.getLast_name());
         ticket.setIs_visited(postTicketDTO.getIs_visited());
@@ -140,7 +140,7 @@ public class TicketService {
         dto.setIs_visited(ticket.getIs_visited());
         dto.setFirst_name(ticket.getFirst_name());
         dto.setLast_name(ticket.getLast_name());
-        dto.setSurname(ticket.getSurname());
+        dto.setFather_name(ticket.getFather_name());
         dto.setDeparture_point(ticket.getDeparture_point());
         dto.setPlace_of_arrival(ticket.getPlace_of_arrival());
         return dto;

@@ -15,7 +15,7 @@ public class Driver {
 
     private String first_name;
     private String last_name;
-    private String surname;
+    private String father_name;
     private String driver_id;
     private String email;
     private String phone_number;
