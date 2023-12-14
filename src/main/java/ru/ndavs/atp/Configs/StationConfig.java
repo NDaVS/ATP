@@ -12,7 +12,13 @@ import java.util.List;
 public class StationConfig {
     @Bean
     CommandLineRunner commandLineRunnerStation(StationRepository repository) {
+        List<Station> stations = repository.findAll();
+        if (!stations.isEmpty()) {
+            return null;
+        }
         return args -> {
+
+
             Station station_1 = new Station(
                     "School"
             );
@@ -20,7 +26,7 @@ public class StationConfig {
                     "FEFU"
             );
             Station station_3 = new Station(
-                   "Вертодром"
+                    "Вертодром"
             );
             Station station_4 = new Station(
                     "ТЭЦ"
@@ -35,6 +41,7 @@ public class StationConfig {
                     "Порт"
             );
             repository.saveAll(List.of(station_1, station_2, station_3, station_4, station_5, station_6, station_7));
+
         };
     }
 }

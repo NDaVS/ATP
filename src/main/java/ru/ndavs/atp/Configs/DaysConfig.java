@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import ru.ndavs.atp.Repositories.DaysRepository;
 import ru.ndavs.atp.models.Days;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,7 +13,12 @@ import java.util.List;
 public class DaysConfig {
     @Bean
     CommandLineRunner commandLineRunnerDays(DaysRepository repository) {
+        List<Days> days = repository.findAll();
+        if (!days.isEmpty()) {
+            return null;
+        }
         return args -> {
+
             Days sun = new Days("sunday");
             Days mon = new Days("monday");
             Days tue = new Days("tuesday");
@@ -23,6 +27,7 @@ public class DaysConfig {
             Days fri = new Days("friday");
             Days sat = new Days("saturday");
             repository.saveAll(Arrays.asList(sun, mon, tue, wen, thu, fri, sat));
+
         };
     }
 }

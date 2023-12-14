@@ -72,8 +72,7 @@ public class UserService {
             user.setLast_name(postUserDTO.getLast_name());
             user.setPhone_number(postUserDTO.getPhone_number());
             user.setRole(postUserDTO.getRole());
-            user.setLogin(postUserDTO.getLogin());
-            user.setPassword(postUserDTO.getPassword());
+
             user.setEmail(postUserDTO.getEmail());
             userRepository.save(user);
             return modelMapper.map(user, UserDTO.class);

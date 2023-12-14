@@ -81,6 +81,9 @@ public class BusService {
             BusDTO busDTO = modelMapper.map(bus, BusDTO.class);
             busDTO.setNumber_of_sits(bus.getBusSpec().getNumber_of_sits());
             busDTO.setModel(bus.getBusSpec().getModel());
+            if (bus.getDriver() != null){
+                busDTO.setDrive_id(bus.getDriver().getId());
+            }
             return busDTO;
         } catch (Error e) {
             throw new IllegalStateException("Не удалось обновить автобус : " + e.getMessage() + " | | " + e.getStackTrace());
