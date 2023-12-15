@@ -14,7 +14,7 @@ public class BusSpecController {
     private final BusSpecService busSpecService;
 
     @GetMapping
-    public ResponseEntity getAllSpecs() {
+    public ResponseEntity<?> getAllSpecs() {
         return ResponseEntity.ok(busSpecService.getAllSpecs());
     }
 
@@ -24,17 +24,17 @@ public class BusSpecController {
 //    }
 
     @PostMapping
-    public ResponseEntity addNewSpec(@RequestBody PostBusSpecDTO postBusSpecDTO) {
+    public ResponseEntity<?> addNewSpec(@RequestBody PostBusSpecDTO postBusSpecDTO) {
         return ResponseEntity.ok(busSpecService.addNewBusSpec(postBusSpecDTO));
     }
 
     @PutMapping
-    public ResponseEntity updateBusSpec(@RequestBody PostBusSpecDTO postBusSpecDTO) {
+    public ResponseEntity<?> updateBusSpec(@RequestBody PostBusSpecDTO postBusSpecDTO) {
         return ResponseEntity.ok(busSpecService.updateBusSpec(postBusSpecDTO));
     }
 
     @DeleteMapping(path = "")
-    public ResponseEntity addNewSpec(@RequestParam String model) {
+    public ResponseEntity<?> addNewSpec(@RequestParam String model) {
         return ResponseEntity.ok(busSpecService.deleteBusSpecByModel(model));
     }
 }

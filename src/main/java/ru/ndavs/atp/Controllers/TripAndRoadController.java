@@ -22,52 +22,52 @@ public class TripAndRoadController {
 
     //    ROAD CRUD
     @GetMapping(path = "/road")
-    public ResponseEntity getRoad() {
+    public ResponseEntity<?> getRoad() {
         return ResponseEntity.ok(roadService.getRoads());
     }
 
     @GetMapping(path = "/road/{id}")
-    public ResponseEntity getRoadById(@PathVariable Long id){
+    public ResponseEntity<?> getRoadById(@PathVariable Long id){
         return ResponseEntity.ok(roadService.getRoadById(id));
     }
 
     @PostMapping(path = "/road")
-    public ResponseEntity addNewRoad(@RequestBody PostRoadDTO postRoadDTO) {
+    public ResponseEntity<?> addNewRoad(@RequestBody PostRoadDTO postRoadDTO) {
         return ResponseEntity.ok(roadService.addRoad(postRoadDTO));
     }
 
     @PutMapping(path = "/road/{id}")
-    public ResponseEntity updateRoad(@PathVariable Long id, @RequestBody PostRoadDTO postRoadDTO) {
+    public ResponseEntity<?> updateRoad(@PathVariable Long id, @RequestBody PostRoadDTO postRoadDTO) {
         return ResponseEntity.ok(roadService.updateTrip(id, postRoadDTO));
     }
 
     @DeleteMapping(path = "/road/{id}")
-    public ResponseEntity deleteRoad(@PathVariable Long id) {
+    public ResponseEntity<?> deleteRoad(@PathVariable Long id) {
         return ResponseEntity.ok(roadService.deleteTrip(id));
     }
 
     //    TRIP CRUD
     @GetMapping(path = "/trip")
-    public ResponseEntity getTrips() {
+    public ResponseEntity<?> getTrips() {
         return ResponseEntity.ok(tripService.getAllTrips());
     }
     @GetMapping(path = "/trip/{id}")
-    public ResponseEntity getTripById(@PathVariable Long id){
+    public ResponseEntity<?> getTripById(@PathVariable Long id){
         return ResponseEntity.ok(tripService.getTripById(id));
     }
 
     @PostMapping(path = "/trip")
-    public ResponseEntity addNewTrip(@RequestBody PostTripDTO postRoadDTO){
+    public ResponseEntity<?> addNewTrip(@RequestBody PostTripDTO postRoadDTO){
         return ResponseEntity.ok(tripService.addNewTrip(postRoadDTO));
     }
 //
     @PutMapping(path = "/trip/{id}")
-    public ResponseEntity updateTrip(@RequestBody PostTripDTO postTripDTO, @PathVariable Long id){
+    public ResponseEntity<?> updateTrip(@RequestBody PostTripDTO postTripDTO, @PathVariable Long id){
         return ResponseEntity.ok(tripService.updateTripById(postTripDTO, id));
     }
 //
     @DeleteMapping(path = "/trip/{id}")
-    public ResponseEntity deleteTripById(@PathVariable Long id){
+    public ResponseEntity<?> deleteTripById(@PathVariable Long id){
         return ResponseEntity.ok(tripService.deleteTripById(id));
     }
 

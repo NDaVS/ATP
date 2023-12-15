@@ -34,5 +34,5 @@ public class Ticket {
     private String first_name;
     private String last_name;
     private String father_name;
-
+    private Integer price;
 }

@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface DepartureRepository extends JpaRepository<Departures, Long> {
     public List<Departures> findDeparturesByDate(Date date);
+
+    public List<Departures> findDeparturesByStatus(String status);
 }

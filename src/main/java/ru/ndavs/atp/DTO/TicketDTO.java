@@ -18,8 +18,10 @@ public class TicketDTO {
     private String departure_point;
     private String place_of_arrival;
 
-    private Boolean is_visited = false;
+    private Boolean is_visited;
     private String first_name;
     private String last_name;
     private String father_name;
+    private Integer price;
+
 }

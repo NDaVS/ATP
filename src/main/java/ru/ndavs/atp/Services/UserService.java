@@ -28,14 +28,15 @@ public class UserService {
 
 
     public Stream<Users> getUsers() {
-        return userDAO.getUsers();
+        return userRepository.findAll().stream();
     }
 
     public UserResponseDTO loginResponse(AccessDTO accessDTO) throws IllegalStateException {
         try {
-            Users user = userDAO.getUserByLogin(accessDTO);
+            Users user = userRepository.findUserByLogin(accessDTO.login).get();
             if (user.getPassword().equals(accessDTO.password)) {
-                UserResponseDTO userResponseDTO = userDAO.loginResponse(accessDTO);
+                UserResponseDTO userResponseDTO = userRepository.findUserByLogin(accessDTO.login).map(usera -> modelMapper.map(user, UserResponseDTO.class)).orElseThrow(() -> new IllegalStateException("Wrong login"));
+                userResponseDTO.setToken("token");
                 return userResponseDTO;
             }
             throw new IllegalStateException("Wrong login/password");

@@ -14,27 +14,37 @@ public class DepartureController {
     private final DepartureService departureService;
 
     @GetMapping
-    private ResponseEntity getAllDepartures(){
+    private ResponseEntity<?> getAllDepartures(){
         return ResponseEntity.ok(departureService.getAllDepartures());
     }
 
     @GetMapping(path = "/{id}")
-    private ResponseEntity getDepartureByid(@PathVariable Long id){
+    private ResponseEntity<?> getDepartureByid(@PathVariable Long id){
         return ResponseEntity.ok(departureService.getDepartureById(id));
     }
 
+    @GetMapping("/canceled")
+    private ResponseEntity<?> getCanceledDeps(){
+        return ResponseEntity.ok(departureService.getCanceledDepartures());
+    }
+
+    @GetMapping("/done")
+    private ResponseEntity<?> getDoneDeps(){
+        return ResponseEntity.ok(departureService.getDoneDepartures());
+    }
+
     @PostMapping
-    private ResponseEntity addNewDeparture(@RequestBody PostDepartureDTO postDepartureDTO){
+    private ResponseEntity<?> addNewDeparture(@RequestBody PostDepartureDTO postDepartureDTO){
         return ResponseEntity.ok(departureService.addNewDeparture(postDepartureDTO));
     }
 
     @PutMapping(path = "/{id}")
-    private ResponseEntity updateDepartureById(@RequestBody PostDepartureDTO postDepartureDTO, @PathVariable Long id){
+    private ResponseEntity<?> updateDepartureById(@RequestBody PostDepartureDTO postDepartureDTO, @PathVariable Long id){
         return ResponseEntity.ok(departureService.updateDepartureById(postDepartureDTO, id));
     }
 
     @DeleteMapping(path = "/{id}")
-    private ResponseEntity deleteDdepartureById(@PathVariable Long id){
+    private ResponseEntity<?> deleteDepartureById(@PathVariable Long id){
         return ResponseEntity.ok(departureService.deleteDepartureById(id));
     }
 }

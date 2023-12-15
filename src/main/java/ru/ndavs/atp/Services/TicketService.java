@@ -114,6 +114,7 @@ public class TicketService {
         ticket.setPlace_number(postTicketDTO.getPlace_number());
         ticket.setPlace_of_arrival(postTicketDTO.getPlace_of_arrival());
         ticket.setDepartures(departureRepository.getReferenceById(postTicketDTO.getDeparture_id()));
+        ticket.setPrice(postTicketDTO.getPrice());
         ticketRepository.save(ticket);
         return DTO_maker(ticket);
     }
@@ -143,6 +144,7 @@ public class TicketService {
         dto.setFather_name(ticket.getFather_name());
         dto.setDeparture_point(ticket.getDeparture_point());
         dto.setPlace_of_arrival(ticket.getPlace_of_arrival());
+        dto.setPrice(ticket.getPrice());
         return dto;
     }
 

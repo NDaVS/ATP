@@ -43,6 +43,24 @@ public class DepartureService {
         return departureDTO;
     }
 
+    public List<DepartureDTO> getDoneDepartures(){
+        List<Departures> deps = departureRepository.findDeparturesByStatus("done");
+        List<DepartureDTO> dtos = new ArrayList<>();
+        for(Departures d: deps){
+            dtos.add(DTO_maker(d));
+        }
+        return dtos;
+    }
+
+    public List<DepartureDTO> getCanceledDepartures(){
+        List<Departures> deps = departureRepository.findDeparturesByStatus("canceled");
+        List<DepartureDTO> dtos = new ArrayList<>();
+        for(Departures d: deps){
+            dtos.add(DTO_maker(d));
+        }
+        return dtos;
+    }
+
 
     public DepartureDTO addNewDeparture(PostDepartureDTO postDepartureDTO){
         Departures departure = new Departures();

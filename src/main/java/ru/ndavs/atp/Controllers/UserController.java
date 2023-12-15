@@ -19,71 +19,71 @@ public class UserController {
     private final ModelMapper modelMapper;
 
     @PostMapping(path = "/login")
-    public ResponseEntity response(@RequestBody AccessDTO accessDTO) throws IllegalAccessException {
+    public ResponseEntity<?> response(@RequestBody AccessDTO accessDTO) throws IllegalAccessException {
         return ResponseEntity.ok(userService.loginResponse(accessDTO));
     }
 
     @GetMapping(path = "/user")
-    public ResponseEntity getUsers() {
+    public ResponseEntity<?> getUsers() {
         return ResponseEntity.ok(userService.getUsers().toList().stream().map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList()));
     }
 
     @GetMapping(path = "/user/{id}")
-    public ResponseEntity getUserById(@PathVariable Long id) {
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PostMapping(path = "/user")
-    public ResponseEntity addNewUser(@RequestBody PostUserDTO postUserDTO) {
+    public ResponseEntity<?> addNewUser(@RequestBody PostUserDTO postUserDTO) {
         return ResponseEntity.ok(userService.addNewUser(postUserDTO));
     }
 
     @PutMapping(path = "/user/{id}")
-    public ResponseEntity updateUserById(@RequestBody PostUserDTO postUserDTO, @PathVariable Long id) {
+    public ResponseEntity<?> updateUserById(@RequestBody PostUserDTO postUserDTO, @PathVariable Long id) {
         return ResponseEntity.ok(userService.updateUserById(postUserDTO, id));
     }
 
     @PatchMapping(path = "/user/{id}")
-    public ResponseEntity patchUserCred(@RequestParam String login, @RequestParam String password, @PathVariable Long id) {
+    public ResponseEntity<?> patchUserCred(@RequestParam String login, @RequestParam String password, @PathVariable Long id) {
         return ResponseEntity.ok(userService.updateUserCred(login, password, id));
     }
 
     @DeleteMapping(path = "/user/{id}")
-    public ResponseEntity addNewUser(@PathVariable Long id) {
+    public ResponseEntity<?> addNewUser(@PathVariable Long id) {
         return ResponseEntity.ok(userService.deleteUserById(id));
     }
 
     @GetMapping(path = "/driver")
-    public ResponseEntity getDrivers() {
+    public ResponseEntity<?> getDrivers() {
         return ResponseEntity.ok(userService.getDrivers());
     }
 
     @GetMapping(path = "/driver/{id}")
-    public ResponseEntity getDriverById(@PathVariable Long id) {
+    public ResponseEntity<?> getDriverById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getDriverById(id));
     }
 
     @PostMapping(path = "/driver")
-    public ResponseEntity registerDriver(@RequestBody PostDriverDTO postDriverDTO) throws IllegalAccessException {
+    public ResponseEntity<?> registerDriver(@RequestBody PostDriverDTO postDriverDTO) throws IllegalAccessException {
         return ResponseEntity.ok(userService.registerDriver(postDriverDTO));
     }
 
     @PutMapping(path = "/driver/{id}")
-    public ResponseEntity patchDriver(@RequestBody PostDriverDTO postDriverDTO, @PathVariable Long id) {
+    public ResponseEntity<?> patchDriver(@RequestBody PostDriverDTO postDriverDTO, @PathVariable Long id) {
         return ResponseEntity.ok(userService.updateDriverBus(postDriverDTO, id));
     }
     @PatchMapping(path = "/driver/{id}")
-    public ResponseEntity patchDriverCred(@RequestParam String login, @RequestParam String password, @PathVariable Long id) {
+    public ResponseEntity<?> patchDriverCred(@RequestParam String login, @RequestParam String password, @PathVariable Long id) {
         return ResponseEntity.ok(userService.updateDriverCred(login, password, id));
     }
 
     @DeleteMapping(path = "/driver/{id}")
-    public ResponseEntity deleteDriver(@PathVariable Long id) {
+    public ResponseEntity<?> deleteDriver(@PathVariable Long id) {
         return ResponseEntity.ok(userService.deleteDriverById(id));
     }
 
     @PatchMapping(path = "/driver")
-    public ResponseEntity setBusAndDriver(@RequestParam Long bus_id, @RequestParam Long driver_id){
+    public ResponseEntity<?> setBusAndDriver(@RequestParam Long bus_id, @RequestParam Long driver_id){
         return ResponseEntity.ok(userService.setBusAndDriver(bus_id, driver_id));
     }
 
