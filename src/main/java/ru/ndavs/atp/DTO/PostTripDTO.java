@@ -1,28 +1,18 @@
 package ru.ndavs.atp.DTO;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import ru.ndavs.atp.models.Driver;
 
+import java.sql.Time;
 import java.util.List;
+import java.util.Timer;
 
-@Setter
-@Getter
-@RequiredArgsConstructor
+@Data
 public class PostTripDTO {
-    private Long trip_id;
-    private Long driver_id;
-    private String time_to;
-    private String time_from;
-    private List<StationDTO> stations;
 
-    @Override
-    public String toString() {
-        return "PostScheduleDTO{" +
-                "bus_id=" + driver_id +
-                ", time_to='" + time_to + '\'' +
-                ", time_from='" + time_from + '\'' +
-                ", stations=" + stations +
-                '}';
-    }
+    private Long road_id;
+    private List<Long> days_id  ;
+    private String departure_time;
+    private Long driver_id;
+    private Long bus_id;
 }

@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: 'java-postgres'
+    environment:
+      - 'POSTGRES_USER=root'
+      - 'POSTGRES_HOST_AUTH_METHOD=trust'
+      - 'POSTGRES_DB=atp'
+    expose:
+      - "5431"
+    ports:
+      - "5431:5431"
+    command: -p 5431
+
+
+  app:
+    image: 'lifrut/atp-ns:v3'
+    restart: always
+    container_name: 'java-app'
+    depends_on:
+      - postgres
+    ports:
+      - "8080:8080"

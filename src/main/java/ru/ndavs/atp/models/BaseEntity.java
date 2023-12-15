@@ -1,21 +1,20 @@
 package ru.ndavs.atp.models;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
 
-@Setter
-@Getter
+//Main Entity class
+
+@Data
 @Entity
-//@MappedSuperclass
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public BaseEntity(Long id) {
-        this.id = id;
-    }
 
     public BaseEntity() {
 

@@ -1,15 +1,15 @@
 package ru.ndavs.atp.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
 public class Users {
 
     @Id
@@ -36,12 +36,14 @@ public class Users {
     private String father_name;
 
     @Column(name = "email")
-    @NotNull
     private String email;
 
     @Column(name = "role")
     @NotNull
     private String role;
+
+    private String phone_number;
+
 
     @Column(name = "login")
     @NotNull
@@ -51,16 +53,6 @@ public class Users {
     @NotNull
     private String password;
 
-    public Users(Long id, String firstName, String lastName, String fatherName, String email, String role, String login, String password) {
-        this.id = id;
-        this.first_name = firstName;
-        this.last_name = lastName;
-        this.father_name = fatherName;
-        this.email = email;
-        this.role = role;
-        this.login = login;
-        this.password = password;
-    }
 
     public Users(String firstName, String lastName, String fatherName, String email, String role, String login, String password) {
         this.first_name = firstName;
@@ -72,20 +64,4 @@ public class Users {
         this.password = password;
     }
 
-    public Users() {
-    }
-
-    @Override
-    public String toString() {
-        return "Users{" +
-                "id=" + getId() +
-                ", firstName='" + first_name + '\'' +
-                ", lastName='" + last_name + '\'' +
-                ", fatherName='" + father_name + '\'' +
-                ", email='" + email + '\'' +
-                ", role='" + role + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

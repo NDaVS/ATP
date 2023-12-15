@@ -12,18 +12,22 @@ import java.util.List;
 public class UserConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner(UserRepository repository){
+    CommandLineRunner commandLineRunnerUser(UserRepository repository){
+        List<Users> users = repository.findAll();
+        if (!users.isEmpty()){
+            return null;
+        }
         return args -> {
-            Users employee = new Users(
-                    "Abobus",
-                    "banfuciy",
-                    "Rozen",
-                    "booba@boob.s",
-                    "directior",
-                    "abobus",
-                    "abobus"
-            );
-            repository.save(employee);
+                Users employee = new Users(
+                        "Abobus",
+                        "banfuciy",
+                        "Rozen",
+                        "booba@boob.s",
+                        "directior",
+                        "abobus",
+                        "abobus"
+                );
+                repository.save(employee);
         };
     }
 }

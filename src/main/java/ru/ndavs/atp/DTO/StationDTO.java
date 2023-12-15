@@ -1,18 +1,12 @@
 package ru.ndavs.atp.DTO;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 public class StationDTO {
-    private long id;
+    private Long id;
     private String name;
 
-    @Override
-    public String toString() {
-        return "StationDTO{" +
-                "id=" + id +
-                ", name=" + name +
-                '}';
-    }
 }
