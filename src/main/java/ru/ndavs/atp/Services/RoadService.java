@@ -27,7 +27,6 @@ public class RoadService {
     private final BusRepository busRepository;
     private final DriverRepository driverRepository;
 
-    private final GroupService groupService;
     //    private final RStationsService rStationsService;
     private final StationsCostService stationsCostService;
     private final StationTimeService stationTimeService;
