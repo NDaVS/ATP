@@ -5,9 +5,9 @@ name: project cicd flow
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main, Drumo ]
   pull_request:
-    branches: [ master ]
+    branches: [ main, Drumo ]
 
 jobs:
   build:
