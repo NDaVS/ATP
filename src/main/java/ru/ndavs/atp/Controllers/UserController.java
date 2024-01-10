@@ -4,10 +4,12 @@ package ru.ndavs.atp.Controllers;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import ru.ndavs.atp.DTO.*;
 import ru.ndavs.atp.Services.UserService;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @RestController
@@ -19,8 +21,9 @@ public class UserController {
     private final ModelMapper modelMapper;
 
     @PostMapping(path = "/login")
-    public ResponseEntity<?> response(@RequestBody AccessDTO accessDTO) throws IllegalAccessException {
-        return ResponseEntity.ok(userService.loginResponse(accessDTO));
+    @Async
+    public CompletableFuture<ResponseEntity<?>> response(@RequestBody AccessDTO accessDTO) throws IllegalAccessException {
+        return CompletableFuture.completedFuture(ResponseEntity.ok(userService.loginResponse(accessDTO)));
     }
 
     @GetMapping(path = "/user")

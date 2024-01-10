@@ -49,7 +49,11 @@ jobs:
           port: ${{ secrets.SERVER_SSH_PORT }}
           command: |
             echo '--- START WORK ON REMOTE SERVER ---';
+            pg_dump -p 5431 -h localhost atp > "/tmp/$(date +'%Y-%m-%d_%H-%M-%S').dmp"
+            echo '--- DUMP CREATED ---';
             cd ATP;
             git pull;
+            echo '--- GIT PULL DONE ---';
             docker-compose --file docker-compose.yml down;
             docker-compose --file docker-compose.yml up -d;
+            echo '--- DOCKER COMPOSE UP DONE ---';

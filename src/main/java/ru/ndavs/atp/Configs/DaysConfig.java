@@ -3,6 +3,7 @@ package ru.ndavs.atp.Configs;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import ru.ndavs.atp.Repositories.DaysRepository;
 import ru.ndavs.atp.models.Days;
 
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
+@EnableAsync
 public class DaysConfig {
     @Bean
     CommandLineRunner commandLineRunnerDays(DaysRepository repository) {

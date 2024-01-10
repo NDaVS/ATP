@@ -2,6 +2,7 @@ package ru.ndavs.atp.Controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import ru.ndavs.atp.DTO.PostBusDTO;
 import ru.ndavs.atp.Services.BusService;
@@ -10,6 +11,7 @@ import ru.ndavs.atp.Services.BusService;
 @RequestMapping("/apishechka/buses")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "https://ylzaporozhskiy.ru/")
+
 public class BusController {
     private final BusService busService;
 

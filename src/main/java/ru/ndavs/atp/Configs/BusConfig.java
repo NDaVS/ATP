@@ -3,12 +3,14 @@ package ru.ndavs.atp.Configs;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableAsync;
 import ru.ndavs.atp.Repositories.BusSpecRepository;
 import ru.ndavs.atp.models.BusSpecs;
 
 import java.util.List;
 
 @Configuration
+@EnableAsync
 public class BusConfig {
 
     @Bean
