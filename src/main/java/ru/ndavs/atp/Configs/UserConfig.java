@@ -25,7 +25,7 @@ public class UserConfig {
                         "banfuciy",
                         "Rozen",
                         "booba@boob.s",
-                        "directior",
+                        "director",
                         "32c9a2ec9e0c4e3a4cc93012b2e72c04b2c395578dcc80b535e951b452eaf9a3",
                         "32c9a2ec9e0c4e3a4cc93012b2e72c04b2c395578dcc80b535e951b452eaf9a3"
                 );
