@@ -47,6 +47,7 @@ jobs:
           REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           REMOTE_PORT: ${{ secrets.SERVER_SSH_PORT }}
+          TARGET: ''
           SCRIPT_AFTER: |
             pwd;
             mkdir deploy test;
