@@ -43,10 +43,10 @@ jobs:
       - name: Deploy to server
         uses: easingthemes/ssh-deploy@v2
         with:
-          host: ${{ secrets.SERVER_IP }}
-          user: ${{ secrets.SERVER_USERNAME }}
-          private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SERVER_SSH_PORT }}
+          REMOTE_HOST: ${{ secrets.SERVER_IP }}
+          REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_PORT: ${{ secrets.SERVER_SSH_PORT }}
           command: |
             pwd;
             mkdir deploy test;
