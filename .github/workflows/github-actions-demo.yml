@@ -48,6 +48,6 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           REMOTE_PORT: ${{ secrets.SERVER_SSH_PORT }}
           TARGET: ''
-          SCRIPT_AFTER: |
+          command: |
             pwd;
-            mkdir deploy test;
+            mkdir deploy_test;
