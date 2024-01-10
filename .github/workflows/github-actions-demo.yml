@@ -49,5 +49,6 @@ jobs:
           REMOTE_PORT: ${{ secrets.SERVER_SSH_PORT }}
           TARGET: ''
           command: |
+            echo '--- START WORK ON REMOTE SERVER ---';
             pwd;
             mkdir deploy_test;
