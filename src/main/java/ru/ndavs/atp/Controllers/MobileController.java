@@ -23,12 +23,11 @@ public class MobileController {
     private final MobileService mobileService;
 
     @PostMapping(path = "/login")
-    @Async
-    public CompletableFuture<ResponseEntity<?>> authorization(@RequestBody AccessDTO loginRequest, @RequestParam(required = false, defaultValue = "default") String hash){
+    public ResponseEntity<?> authorization(@RequestBody AccessDTO loginRequest, @RequestParam(required = false, defaultValue = "default") String hash){
         try {
-            return CompletableFuture.completedFuture(ResponseEntity.ok().body(authorizationService.mobileAuthorization(loginRequest)));
+            return ResponseEntity.ok().body(authorizationService.mobileAuthorization(loginRequest));
         }catch (Exception e){
-            return CompletableFuture.completedFuture(ResponseEntity.badRequest().body(e.getMessage()));
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
